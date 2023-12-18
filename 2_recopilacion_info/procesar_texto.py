@@ -1,9 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 
-import requests
-from bs4 import BeautifulSoup
-
 def obtener_texto_de_url(url):
     """Obtiene el texto de una url.
 
@@ -20,5 +17,5 @@ def obtener_texto_de_url(url):
     return texto
 
 
-texto = obtener_texto_de_url('https://www.msn.com/es-es/noticias/other/la-ley-de-inteligencia-artificial-llega-a-europa-pero-aspira-a-tener-una-vocaci%C3%B3n-global/ar-AA1lELQf')
+texto = obtener_texto_de_url('https://www.msn.com/es-es/noticias/espana/cuca-gamarra-s%C3%A1nchez-quiere-una-foto-con-feij%C3%B3o-para-blanquear-otras/ar-AA1lEKNR')
 print(texto)
