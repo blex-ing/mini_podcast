@@ -11,11 +11,11 @@ Este documento constituye el registro acumulativo de requisitos del producto. No
 | RF-001 | Funcional | Crear borrador de episodio mediante URL validada | publicado_master (solo borrador opcional Supabase) | studio-ui | v0.2.0 |
 | RF-002 | Funcional | Roadmap con hitos y estados GitHub | publicado_master | roadmap-management | v0.3.0 |
 | RNF-001 | Calidad visual | Sistema de tokens y reglas CI compartidos | publicado_master | frontend-design-system | v0.4.0 |
-| RF-GLASS-001 | UI | Activar Glass híbrido únicamente en navegación y superficies de alto valor | en_desarrollo | feature/hybrid-liquid-glass | PR pendiente |
+| RF-GLASS-001 | UI | Activar Glass híbrido únicamente en navegación y superficies de alto valor | en_desarrollo | feature/hybrid-liquid-glass | PR #19 |
 | RNF-GLASS-001 | Rendimiento | Restringir blur intensivo y evitar filtros caros en listas / tarjetas | en_desarrollo | feature/hybrid-liquid-glass | QA móvil pendiente |
 | RNF-GLASS-002 | Accesibilidad | Reducir movimiento/transparencia según preferencias y fallback sin filtros | en_desarrollo | feature/hybrid-liquid-glass | QA pendiente |
-| RNF-GLASS-003 | Consistencia | Usar tokens y componentes canónicos sin colores arbitrarios | en_desarrollo | feature/hybrid-liquid-glass | CI por validar |
-| RNF-GLASS-004 | Despliegue | Validar en Preview de Cloudflare antes de fusionar a develop/master | en_desarrollo | feature/hybrid-liquid-glass | URL y revisión pendientes |
+| RNF-GLASS-003 | Consistencia | Usar tokens y componentes canónicos sin colores arbitrarios | en_desarrollo | feature/hybrid-liquid-glass | CI GitHub Actions correcta (PR #19) |
+| RNF-GLASS-004 | Despliegue | Validar en Preview de Cloudflare antes de fusionar a develop/master | en_desarrollo | feature/hybrid-liquid-glass | URL Preview y revisión visual pendientes |
 
 ## Feature: Glass híbrido (MP-GLASS-001)
 
@@ -53,6 +53,12 @@ Este documento constituye el registro acumulativo de requisitos del producto. No
 4. Recoger aprobación visual explícita del usuario para escritorio y móvil.
 5. **Solo tras aprobación:** PR feature → `develop`, `release/vX.Y.Z` → `master`; etiqueta y GitHub Release automáticas.
 6. Actualizar en este registro estado, PR y release reales, y en el Roadmap si se decide incorporarlo como feature ponderada.
+
+## Evidencias del prototipo
+- Pull Request borrador: https://github.com/blex-ing/mini_podcast/pull/19
+- Validación automatizada de la feature: https://github.com/blex-ing/mini_podcast/actions/runs/43791176949 (Python, build TypeScript/Vite, lint, validación del roadmap y del sistema de diseño: correctas).
+- Validación visual en Cloudflare Worker Preview, Safari iPhone y escritorio: **pendiente de usuario**. Este prototipo no se considera publicado ni aceptado.
+- Nota técnica: `backdrop-filter` es real; los reflejos y capas especulares son CSS. No existe refracción óptica nativa de iOS.
 
 ## Referencias
 - [Visión y MVP](VISION_Y_MVP_V1.md)
