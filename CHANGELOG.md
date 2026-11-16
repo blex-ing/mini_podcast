@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.0 — Sistema de diseño
+- Tokens de paleta, tipografía, espaciado, radios y sombras.
+- Primitivas compartidas para superficies, controles y estados.
+- Refactorización Studio/Roadmap con identidad visual consistente.
+- Quality gate de diseño en CI y documentación canónica.
+- Roadmap: 13 features, 100 puntos ponderados.
+
 ## v0.3.0 — Arquitectura y Roadmap
 - Visión de producto y definición del MVP general de podcasts.
 - Arquitectura modular reutilizable para perfiles especializados, incluido Un Capítulo con Jesús.
