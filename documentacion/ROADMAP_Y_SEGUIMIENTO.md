@@ -36,3 +36,6 @@ El estado de una feature futura se resuelve consultando en GitHub los PR fusiona
 - El histórico verificado no cambia sin revisión explícita.
 - No usar tokens GitHub privados en la web: consulta pública de repo. La API pública puede imponer rate limit; en tal caso se usa estado de referencia y mensaje visible.
 - Las pruebas CI validan el manifiesto del roadmap.
+
+## Evolución del plan — Sistema visual v1
+La feature `feature/frontend-design-system` añade 4 puntos al hito Base tecnológica para fijar tokens, superficies, componentes y validaciones CI. El plan sigue sumando 100 puntos al reducir 2 puntos de `audio-delivery` y 2 de `product-profiles` (reestimación del alcance; no significa trabajo realizado). El total pasa de 12 a 13 features y el progreso anterior a la integración de esta feature continúa siendo 25 puntos.

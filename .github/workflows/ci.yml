@@ -33,5 +33,6 @@ jobs:
           node-version: "22"
       - run: npm install --no-audit --no-fund
       - run: npm run validate:roadmap
+      - run: npm run check:design
       - run: npm run build
       - run: npm run lint
