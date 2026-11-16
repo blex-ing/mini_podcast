@@ -1,0 +1,44 @@
+name: Publish stable GitHub Release
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [master]
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    if: >-
+      github.event.pull_request.merged == true &&
+      startsWith(github.event.pull_request.head.ref, 'release/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+      - name: Tag exactly the merged master commit and publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_BRANCH: ${{ github.event.pull_request.head.ref }}
+          MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+        run: |
+          set -euo pipefail
+          version="${RELEASE_BRANCH#release/}"
+          [[ "${version}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || exit 1
+          git fetch origin master
+          current_master="$(git rev-parse origin/master)"
+          if [ "${current_master}" != "${MERGE_SHA}" ]; then
+            echo "::error::master advanced; manual review needed before tagging"
+            exit 1
+          fi
+          if git ls-remote --tags origin "refs/tags/${version}" | grep -q .; then
+            echo "::error::Tag already exists: ${version}"
+            exit 1
+          fi
+          git tag "${version}" "${MERGE_SHA}"
+          git push origin "refs/tags/${version}"
+          gh release create "${version}" --target "${MERGE_SHA}" --title "${version}" --notes-file documentacion/releases/v0.1.0.md
