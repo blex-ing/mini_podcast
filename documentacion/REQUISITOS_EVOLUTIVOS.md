@@ -15,6 +15,7 @@ Este documento constituye el registro acumulativo de requisitos del producto. No
 | RNF-GLASS-001 | Rendimiento | Restringir blur intensivo y evitar filtros caros en listas / tarjetas | en_desarrollo | feature/hybrid-liquid-glass | QA móvil pendiente |
 | RNF-GLASS-002 | Accesibilidad | Reducir movimiento/transparencia según preferencias y fallback sin filtros | en_desarrollo | feature/hybrid-liquid-glass | QA pendiente |
 | RNF-GLASS-003 | Consistencia | Usar tokens y componentes canónicos sin colores arbitrarios | en_desarrollo | feature/hybrid-liquid-glass | CI GitHub Actions correcta (PR #19) |
+| RNF-VIS-001 | Control visual | Generar capturas de Studio y Roadmap y detectar desbordamientos, colisiones y fallos de interacción antes de Cloudflare | en_desarrollo | feature/hybrid-liquid-glass | Playwright + GitHub Actions, validación en curso |
 | RNF-GLASS-005 | Coherencia UI | Paneles equivalentes comparten componente y respuesta al cursor | en_desarrollo | feature/hybrid-liquid-glass | Corrección de Review PR #19; QA pendiente |
 | RNF-GLASS-004 | Despliegue | Validar en Preview de Cloudflare antes de fusionar a develop/master | en_desarrollo | feature/hybrid-liquid-glass | URL Preview y revisión visual pendientes |
 
@@ -66,6 +67,20 @@ Este documento constituye el registro acumulativo de requisitos del producto. No
 - Validación automatizada de la feature: https://github.com/blex-ing/mini_podcast/actions/runs/43791176949 (Python, build TypeScript/Vite, lint, validación del roadmap y del sistema de diseño: correctas).
 - Validación visual en Cloudflare Worker Preview, Safari iPhone y escritorio: **pendiente de usuario**. Este prototipo no se considera publicado ni aceptado.
 - Nota técnica: `backdrop-filter` es real; los reflejos y capas especulares son CSS. No existe refracción óptica nativa de iOS.
+
+## RNF-VIS-001 — Quality gate visual antes de Cloudflare
+
+El frontend debe ejecutarse localmente en CI con Chromium (Playwright), sin depender de un despliegue remoto. Para cada feature UI, guardar capturas reproducibles de Studio y Roadmap a 1440×900, 768×1024, 390×844 y 320×740, más capturas/trace de fallo. Comprobar:
+- Ausencia de scroll horizontal inesperado en esas resoluciones.
+- Ausencia de colisiones entre elementos de navegación visibles.
+- Paneles y elementos principales existentes y visibles.
+- Errores JavaScript no capturados.
+- Paridad del efecto Glass en las cajas hermanas.
+- Navegación con movimiento reducido.
+
+Las capturas y el HTML report se conservarán como artefactos descargables de GitHub Actions, incluso si fallan las pruebas. **Las capturas no equivalen por sí solas a una inspección estética humana ni aseguran compatibilidad idéntica con Safari iOS.** El asistente podrá calificar subjetivamente los materiales, la jerarquía, los espacios y los contrastes cuando tenga acceso a las imágenes, y deberá diferenciar las observaciones visuales de los resultados medidos del navegador.
+
+En futuros cambios visuales importantes, comparar capturas con las de la última versión aprobada y adjuntar hallazgos/reparaciones al PR antes de solicitar la validación humana en Cloudflare.
 
 ## Referencias
 - [Visión y MVP](VISION_Y_MVP_V1.md)
