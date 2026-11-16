@@ -111,6 +111,25 @@
       }
     },
     {
+      "id": "frontend-design-system",
+      "milestone": "base",
+      "title": "Sistema visual coherente y tokens compartidos",
+      "description": "Paleta, materiales, tipografías y componentes UI gobernados por tokens y validados en CI.",
+      "weight": 4,
+      "priority": "high",
+      "branch": "feature/frontend-design-system",
+      "acceptance": [
+        "Tokens centrales e identidad visual documentada",
+        "Pantallas Studio y Roadmap sin colores literales",
+        "Componentes de superficie y botones reutilizables",
+        "CI impide nuevos colores fuera del sistema de diseño"
+      ],
+      "baseline": {
+        "develop": false,
+        "master": false
+      }
+    },
+    {
       "id": "core-engine",
       "milestone": "engine",
       "title": "Motor modular y contratos",
@@ -187,7 +206,7 @@
       "milestone": "audio",
       "title": "Procesamiento y almacenamiento MP3",
       "description": "Normalización, duración, reproducción y archivos privados.",
-      "weight": 8,
+      "weight": 6,
       "priority": "high",
       "branch": "feature/audio-delivery",
       "acceptance": [
@@ -223,7 +242,7 @@
       "milestone": "products",
       "title": "Motor de perfiles especializados",
       "description": "Configuración por producto de guion, voz, reglas e identidad visual.",
-      "weight": 5,
+      "weight": 3,
       "priority": "medium",
       "branch": "feature/product-profiles",
       "acceptance": [
