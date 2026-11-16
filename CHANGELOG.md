@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.5.0 — Glass híbrido, QA visual y CI segura
+- Glass híbrido compartido en navegación, los dos paneles de Studio y los tres KPI de Roadmap.
+- Fallback ligero de KPI en móviles y soporte para transparencia/movimiento reducidos.
+- Pruebas Playwright con capturas automáticas y detección de problemas responsive (8/8 tests).
+- GitHub Actions oficiales actualizadas a v7 verificadas, fijadas por SHA, con Node.js 24 y permisos mínimos.
+- Instalación reproducible mediante package-lock + npm ci; Dependabot semanal y auditoría npm.
+- Registro de requisitos evolutivos, decisiones visuales y seguridad del pipeline.
+- Pendiente: validación visual tras despliegue Cloudflare en Safari real; issue #20 para avisos moderados del tooling.
+
 ## v0.4.0 — Sistema de diseño
 - Tokens de paleta, tipografía, espaciado, radios y sombras.
 - Primitivas compartidas para superficies, controles y estados.
