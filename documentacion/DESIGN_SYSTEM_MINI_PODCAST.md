@@ -89,3 +89,10 @@ El resto mantiene Glass básico o Soft Surface, evitando múltiples `backdrop-fi
 **Calidad y accesibilidad:** `@supports` ofrece fondo sólido cuando el blur no existe; `prefers-reduced-transparency` elimina transparencia; `prefers-reduced-motion` elimina desplazamientos; el seguimiento del puntero no usa estado React, y en móviles touch se mantiene la iluminación fija.
 
 **Trazabilidad:** requisitos RF-GLASS-001 y RNF-GLASS-001–004 en [REQUISITOS_EVOLUTIVOS.md](REQUISITOS_EVOLUTIVOS.md). Está pendiente la validación visual de la Preview Cloudflare; no promocionar a `develop` o `master` hasta contar con aprobación.
+
+## 12. Coherencia entre componentes equivalentes (review PR #19)
+- `web/src/ui/HybridGlassSurface.tsx` es el componente compartido para paneles Glass híbridos interactivos; incorpora clase `ui-hybrid-glass` y `moveGlassLight` de manera indivisible.
+- Los paneles hermanos de Studio («Nuevo proyecto» y «De la lectura al audio») usan la **misma primitiva**, en lugar de habilitar el efecto por separado.
+- Los paneles secundarios fuera de ese grupo pueden mantener Soft Surface o Glass básico por jerarquía, pero no pueden diferir arbitrariamente dentro de la misma pareja visual.
+- Toda nueva modificación del mecanismo del reflejo se realiza en el componente/primitiva común y debe probarse con el cursor sobre ambas cajas.
+- La comparación visual debe validarse en la Preview de Cloudflare antes de integrar la feature.
