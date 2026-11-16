@@ -53,3 +53,11 @@ El build de Vite terminó correctamente, pero Wrangler falló porque faltaba `pr
 Si el log dice «Executing user deploy command: npx wrangler preview», el campo Deploy command está mal configurado: cambiarlo desde Cloudflare → Worker → Settings → Build. El cambio en GitHub no altera esos campos del Dashboard.
 
 Después de corregir el panel, lanzar un despliegue nuevo desde la rama `master` y comprobar la URL `workers.dev`.
+
+## Corrección 2026-11-16 — Error 100324 (`_redirects`)
+
+Workers Static Assets rechazó `web/public/_redirects` con `/* /index.html 200` porque generaba un bucle infinito. Vite copia automáticamente `public/_redirects` a `web/dist/_redirects`; Wrangler lo interpreta durante el despliegue.
+
+**Resolución:** eliminar `web/public/_redirects`. La aplicación ya tiene `assets.not_found_handling: single-page-application` en el archivo raíz `wrangler.jsonc`, suficiente para el fallback de una SPA en Workers.
+
+No reintroducir reglas `/* /index.html 200` al utilizar Workers Static Assets. Comprobar en un despliegue real que desaparece el error 100324.
