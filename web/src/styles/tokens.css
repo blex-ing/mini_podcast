@@ -89,6 +89,18 @@
   --shadow-microphone: inset 0 0 60px color-mix(in srgb, var(--color-primary-strong) 29.41%, transparent), 0 15px 60px color-mix(in srgb, var(--color-black) 46.67%, transparent);
   --shadow-dialog: 0 16px 60px color-mix(in srgb, var(--color-black) 20%, transparent);
   --glass-filter: blur(16px) saturate(140%);
+  /* Hybrid glass: advanced treatment reserved for key UI surfaces */
+  --glass-hybrid-filter: blur(20px) saturate(165%);
+  --glass-hybrid-surface: color-mix(in srgb, var(--color-surface) 76%, transparent);
+  --glass-hybrid-veil: color-mix(in srgb, var(--color-primary) 6%, transparent);
+  --glass-hybrid-edge: color-mix(in srgb, var(--color-white) 30%, transparent);
+  --glass-hybrid-edge-soft: color-mix(in srgb, var(--color-primary) 17%, transparent);
+  --glass-hybrid-light: color-mix(in srgb, var(--color-white) 23%, transparent);
+  --glass-hybrid-glint: color-mix(in srgb, var(--color-white) 34%, transparent);
+  --glass-hybrid-shadow: 0 12px 32px color-mix(in srgb, var(--color-black) 24%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--color-white) 24%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--color-primary) 14%, transparent);
+  --glass-hybrid-transition: 220ms;
   --motion-fast: 150ms;
   --motion-normal: 240ms;
   --layout-max: 1200px;
