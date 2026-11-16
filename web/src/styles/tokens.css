@@ -1,0 +1,91 @@
+/*
+ * MINI PODCAST DESIGN TOKENS — canonical visual contract (v1)
+ * Only this file may contain literal color values.
+ * New components must use semantic tokens and shared surface/button primitives.
+ * Inspired by Yachay Kichwa's design-system governance, not its green palette.
+ */
+:root {
+  color-scheme: dark;
+  /* Primitive palette, preserved from Mini Podcast's original lilac/ink identity */
+  --palette-ink-950: #0c1020;
+  --palette-ink-980: #0b0e1d;
+  --palette-panel-900: #1c1b33;
+  --palette-panel-800: #272d4d;
+  --palette-panel-violet: #382c4a;
+  --palette-paper: #f8f5fb;
+  --palette-lilac-100: #f1e3f7;
+  --palette-lilac-200: #e8d6f1;
+  --palette-lilac-300: #d9b5e9;
+  --palette-lilac-400: #c9a1d8;
+  --palette-lilac-500: #b078d2;
+  --palette-lilac-700: #816092;
+  --palette-rose-500: #ac789a;
+  --palette-blue-500: #6277a4;
+  --palette-muted-300: #b8b4c8;
+  --palette-muted-400: #aaa7bb;
+  --palette-muted-600: #817992;
+  --palette-white: #ffffff;
+  --palette-black: #000000;
+
+  /* Semantic color roles — use these for new components */
+  --color-background: var(--palette-ink-950);
+  --color-background-deep: var(--palette-ink-980);
+  --color-surface: var(--palette-panel-900);
+  --color-surface-strong: var(--palette-panel-800);
+  --color-surface-accent: var(--palette-panel-violet);
+  --color-text: var(--palette-paper);
+  --color-text-subtle: var(--palette-lilac-200);
+  --color-text-muted: var(--palette-muted-400);
+  --color-text-faint: var(--palette-muted-600);
+  --color-primary: var(--palette-lilac-300);
+  --color-primary-soft: var(--palette-lilac-200);
+  --color-primary-strong: var(--palette-lilac-500);
+  --color-primary-deep: var(--palette-lilac-700);
+  --color-rose: var(--palette-rose-500);
+  --color-blue: var(--palette-blue-500);
+  --color-on-primary: var(--palette-ink-950);
+  --color-white: var(--palette-white);
+  --color-black: var(--palette-black);
+  --color-border: color-mix(in srgb, var(--color-white) 14%, transparent);
+  --color-border-emphasis: color-mix(in srgb, var(--color-primary) 38%, transparent);
+  --color-glass: color-mix(in srgb, var(--color-white) 6%, transparent);
+  --color-glass-strong: color-mix(in srgb, var(--color-white) 10%, transparent);
+  --color-glass-hover: color-mix(in srgb, var(--color-white) 14%, transparent);
+  --color-info-surface: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  --color-focus: var(--color-primary);
+
+  /* Typography */
+  --font-ui: 'DM Sans', system-ui, sans-serif;
+  --font-heading: 'Manrope', 'DM Sans', system-ui, sans-serif;
+  --font-editorial: Georgia, serif;
+  --font-size-caption: 0.6875rem;
+  --font-size-body: 0.875rem;
+  --font-size-heading: 2rem;
+  --line-height-copy: 1.7;
+
+  /* Spacing scale: multiples of four */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Surface hierarchy */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-control: 10px;
+  --radius-card: 12px;
+  --radius-panel: 16px;
+  --radius-shell: 24px;
+  --radius-pill: 999px;
+  --shadow-glass: 0 16px 38px color-mix(in srgb, var(--color-black) 24%, transparent);
+  --shadow-card: 0 8px 24px color-mix(in srgb, var(--color-black) 17%, transparent);
+  --glass-filter: blur(16px) saturate(140%);
+  --motion-fast: 150ms;
+  --motion-normal: 240ms;
+  --layout-max: 1200px;
+}
