@@ -80,3 +80,175 @@
 @media (prefers-reduced-motion: reduce) {
   .ui-button { transition: none; }
 }
+
+/*
+ * Hybrid Liquid Glass (web approximation)
+ * Scoped to navigation, important controls and selected showcase panels.
+ * No SVG displacement/WebGL: specular edge lighting + responsive pointer glint.
+ */
+.ui-hybrid-glass {
+  position: relative;
+  isolation: isolate;
+  background: var(--color-surface);
+  border: 1px solid var(--glass-hybrid-edge-soft);
+  box-shadow: var(--shadow-hybrid);
+}
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .ui-hybrid-glass {
+    background: linear-gradient(145deg, var(--glass-hybrid-veil), transparent 65%), var(--glass-hybrid-surface);
+    -webkit-backdrop-filter: var(--glass-hybrid-filter);
+    backdrop-filter: var(--glass-hybrid-filter);
+  }
+}
+.ui-hybrid-glass::before,
+.ui-hybrid-glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.ui-hybrid-glass::before {
+  z-index: 0;
+  background: radial-gradient(
+    380px circle at var(--glass-pointer-x, 50%) var(--glass-pointer-y, 0%),
+    var(--glass-hybrid-light) 0%, transparent 72%);
+  opacity: .48;
+  transition: opacity var(--glass-hybrid-transition);
+}
+.ui-hybrid-glass::after {
+  z-index: 1;
+  box-shadow: var(--shadow-hybrid-rim);
+  background: linear-gradient(110deg, var(--glass-hybrid-glint), transparent 24%, transparent 76%, var(--glass-hybrid-edge-soft));
+  -webkit-mask-image: linear-gradient(to bottom, var(--color-black), transparent 58%);
+  mask-image: linear-gradient(to bottom, var(--color-black), transparent 58%);
+  opacity: .45;
+}
+.ui-hybrid-glass > * { position: relative; z-index: 2; }
+@media (hover: hover) and (pointer: fine) {
+  .ui-hybrid-glass:hover::before { opacity: .76; }
+}
+.ui-hybrid-control {
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-hybrid);
+  transition: box-shadow var(--glass-hybrid-transition), transform var(--motion-fast);
+}
+.ui-hybrid-control::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: var(--shadow-hybrid-control);
+  background: linear-gradient(130deg, var(--glass-hybrid-glint), transparent 39%);
+  opacity: .42;
+}
+@media (hover: hover) and (pointer: fine) {
+  .ui-hybrid-control:not(:disabled):hover { transform: translateY(-1px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ui-hybrid-glass::before, .ui-hybrid-control { transition: none; }
+  .ui-hybrid-control:not(:disabled):hover { transform: none; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .ui-hybrid-glass, .ui-glass-primary.ui-hybrid-glass {
+    background: var(--color-surface) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  .ui-hybrid-glass::before, .ui-hybrid-glass::after,
+  .ui-hybrid-control::after { display: none; }
+}
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .ui-hybrid-glass { background: var(--color-surface); }
+}
+
+/* Hybrid glass adoption: only the shell, primary input panel and key actions. */
+.nav.ui-hybrid-glass {
+  margin-top: var(--space-3);
+  border-radius: var(--radius-panel);
+  border-color: var(--glass-hybrid-edge-soft);
+}
+.nav.ui-hybrid-glass .brand-icon {
+  box-shadow: var(--shadow-hybrid-control);
+}
+.editor.ui-hybrid-glass {
+  border-radius: var(--radius-panel);
+}
+.roadmap-main-stat.ui-hybrid-glass {
+  border-radius: var(--radius-panel);
+}
+.primary.ui-hybrid-control {
+  border: 1px solid var(--glass-hybrid-edge-soft);
+}
+.nav-cta.ui-hybrid-control,
+.roadmap-filter button.selected {
+  box-shadow: var(--shadow-hybrid-selected);
+}
+@media (max-width: 580px) {
+  .nav.ui-hybrid-glass { margin-top: var(--space-2); }
+  /* Keep the Roadmap link accessible in compact navigation. */
+  .nav nav a:last-child { display: inline-flex; }
+  .nav nav a:nth-child(3) { display: none; }
+}
+
+/* Compact iPhone SE / 320px: avoid clipping header actions behind site overflow. */
+@media (max-width: 360px) {
+  .nav.ui-hybrid-glass {
+    gap: var(--space-1);
+    padding-inline: var(--space-3);
+  }
+  .nav.ui-hybrid-glass .brand {
+    font-size: 18px;
+    letter-spacing: -0.8px;
+  }
+  .nav.ui-hybrid-glass .brand-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: var(--space-1);
+  }
+  .nav.ui-hybrid-glass nav {
+    gap: var(--space-2);
+    font-size: 10px;
+  }
+}
+
+
+/*
+ * Material policy: KPI cards share identical interactive highlights.
+ * Their frosted filter is restricted to desktop / fine-pointer layouts.
+ * Dense milestone groups never create extra GPU backdrop layers.
+ */
+.roadmap-stats > .roadmap-stat.ui-hybrid-glass {
+  border-radius: var(--radius-panel);
+}
+.roadmap-stats > .roadmap-stat.ui-hybrid-glass::before {
+  opacity: .48;
+}
+.roadmap-stats > .roadmap-stat.ui-hybrid-glass:hover::before {
+  opacity: .76;
+}
+.milestone.ui-glass-card,
+.roadmap-sync.ui-glass-card {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background: var(--color-glass);
+}
+@media (max-width: 900px), (hover: none), (pointer: coarse) {
+  .roadmap-stats > .roadmap-stat.ui-hybrid-glass {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--color-surface);
+  }
+  .roadmap-stats > .roadmap-stat.ui-hybrid-glass::before {
+    opacity: .32;
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .roadmap-stats > .roadmap-stat.ui-hybrid-glass {
+    background: var(--color-surface);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
