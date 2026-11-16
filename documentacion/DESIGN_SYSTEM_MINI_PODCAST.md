@@ -72,3 +72,20 @@ No anidar varias superficies glass con blur y sombra completos. Un contenido den
 
 ## 10. Auditoría inicial
 La interfaz anterior acumulaba **170 usos de color hexadecimal y 144 valores distintos** en `web/src/styles.css` (incluido Roadmap). Se han transformado en referencias a una paleta deliberada y tokens semánticos, conservando la dirección estética lila/tinta y centralizando asimismo las familias tipográficas y radios. Los microajustes visuales deben validarse en Cloudflare Preview antes de producción.
+
+
+## 11. Material híbrido — feature/hybrid-liquid-glass (propuesta en validación)
+
+El material `ui-hybrid-glass` es **una aproximación web** a Liquid Glass, no el material nativo de Apple ni una refracción óptica exacta. Combina `backdrop-filter` real, capas de luz especular, gradientes de borde y posición luminosa reactiva al puntero. No se utilizan efectos 3D costosos ni simulaciones de refracción sobre todo el documento.
+
+Aplicar **solo** a:
+- Cabecera (`nav.ui-hybrid-glass`).
+- Panel principal para crear un episodio (`editor.ui-hybrid-glass`).
+- Métrica principal del Roadmap (`roadmap-main-stat.ui-hybrid-glass`).
+- Botones principales con `ui-hybrid-control`.
+
+El resto mantiene Glass básico o Soft Surface, evitando múltiples `backdrop-filter` simultáneos en bibliotecas y listas. Los tokens canónicos se encuentran en `web/src/styles/tokens.css` con prefijo `--glass-hybrid-*`.
+
+**Calidad y accesibilidad:** `@supports` ofrece fondo sólido cuando el blur no existe; `prefers-reduced-transparency` elimina transparencia; `prefers-reduced-motion` elimina desplazamientos; el seguimiento del puntero no usa estado React, y en móviles touch se mantiene la iluminación fija.
+
+**Trazabilidad:** requisitos RF-GLASS-001 y RNF-GLASS-001–004 en [REQUISITOS_EVOLUTIVOS.md](REQUISITOS_EVOLUTIVOS.md). Está pendiente la validación visual de la Preview Cloudflare; no promocionar a `develop` o `master` hasta contar con aprobación.
