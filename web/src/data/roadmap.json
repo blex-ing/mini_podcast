@@ -92,6 +92,25 @@
       }
     },
     {
+      "id": "roadmap-management",
+      "milestone": "base",
+      "title": "Arquitectura documentada y Roadmap web",
+      "description": "Visión/MVP, arquitectura y seguimiento transparente de PRs con avance ponderado.",
+      "weight": 5,
+      "priority": "high",
+      "branch": "feature/roadmap-arquitectura-v1",
+      "acceptance": [
+        "Visión y arquitectura versionadas",
+        "Roadmap responsive por hitos y features",
+        "Estados integrados/publicados vinculados a GitHub",
+        "CI valida pesos y estructura"
+      ],
+      "baseline": {
+        "develop": false,
+        "master": false
+      }
+    },
+    {
       "id": "core-engine",
       "milestone": "engine",
       "title": "Motor modular y contratos",
@@ -168,7 +187,7 @@
       "milestone": "audio",
       "title": "Procesamiento y almacenamiento MP3",
       "description": "Normalización, duración, reproducción y archivos privados.",
-      "weight": 10,
+      "weight": 8,
       "priority": "high",
       "branch": "feature/audio-delivery",
       "acceptance": [
@@ -204,7 +223,7 @@
       "milestone": "products",
       "title": "Motor de perfiles especializados",
       "description": "Configuración por producto de guion, voz, reglas e identidad visual.",
-      "weight": 8,
+      "weight": 5,
       "priority": "medium",
       "branch": "feature/product-profiles",
       "acceptance": [
