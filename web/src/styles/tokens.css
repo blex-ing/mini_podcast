@@ -84,6 +84,10 @@
   --radius-pill: 999px;
   --shadow-glass: 0 16px 38px color-mix(in srgb, var(--color-black) 24%, transparent);
   --shadow-card: 0 8px 24px color-mix(in srgb, var(--color-black) 17%, transparent);
+  --shadow-icon-glow: 0 0 12px var(--color-primary);
+  --shadow-halo: 0 0 0 32px color-mix(in srgb, var(--color-primary) 3.92%, transparent), 0 0 0 73px color-mix(in srgb, var(--color-primary) 4.31%, transparent);
+  --shadow-microphone: inset 0 0 60px color-mix(in srgb, var(--color-primary-strong) 29.41%, transparent), 0 15px 60px color-mix(in srgb, var(--color-black) 46.67%, transparent);
+  --shadow-dialog: 0 16px 60px color-mix(in srgb, var(--color-black) 20%, transparent);
   --glass-filter: blur(16px) saturate(140%);
   --motion-fast: 150ms;
   --motion-normal: 240ms;
