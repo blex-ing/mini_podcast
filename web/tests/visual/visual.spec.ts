@@ -22,6 +22,12 @@ async function inspectLayout(page: Page, screenName: string) {
       return rect.width > 0 && rect.height > 0 && style.visibility !== 'hidden' && style.display !== 'none'
     })
     const collisions: string[] = []
+    for (const link of visible) {
+      const r = link.getBoundingClientRect()
+      if (r.left < -1 || r.right > innerWidth + 1) {
+        collisions.push(`Navigation item outside viewport: ${link.textContent?.trim()} (left ${r.left.toFixed(1)}, right ${r.right.toFixed(1)}, viewport ${innerWidth})`)
+      }
+    }
     for (let i = 0; i < visible.length; i++) {
       const a = visible[i].getBoundingClientRect()
       for (let j = i + 1; j < visible.length; j++) {
