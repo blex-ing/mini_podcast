@@ -41,4 +41,6 @@ jobs:
           fi
           git tag "${version}" "${MERGE_SHA}"
           git push origin "refs/tags/${version}"
-          gh release create "${version}" --target "${MERGE_SHA}" --title "${version}" --notes-file documentacion/releases/v0.1.0.md
+          notes="documentacion/releases/${version}.md"
+          test -f "${notes}" || { echo "::error::Release notes missing: ${notes}"; exit 1; }
+          gh release create "${version}" --target "${MERGE_SHA}" --title "${version}" --notes-file "${notes}"
