@@ -9,6 +9,7 @@
 - Supabase preparado como opción; no es obligatorio para la web informativa.
 
 ## Documentación canónica
+- [Sistema de diseño — reglas obligatorias para frontend](documentacion/DESIGN_SYSTEM_MINI_PODCAST.md)
 - [Visión y alcance MVP](documentacion/VISION_Y_MVP_V1.md)
 - [Arquitectura modular v1](documentacion/ARQUITECTURA_V1.md)
 - [Roadmap, porcentajes y seguimiento](documentacion/ROADMAP_Y_SEGUIMIENTO.md)
@@ -20,6 +21,7 @@
 cd web
 npm install
 npm run validate:roadmap
+npm run check:design
 npm run build
 npm run lint
 npm run dev

@@ -9,7 +9,8 @@
     "preview": "vite preview --host 0.0.0.0",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "validate:roadmap": "node scripts/validate-roadmap.mjs"
+    "validate:roadmap": "node scripts/validate-roadmap.mjs",
+    "check:design": "node scripts/check-design-system.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.0",
