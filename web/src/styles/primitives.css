@@ -1,0 +1,82 @@
+/*
+ * Mini Podcast UI primitives.
+ * Use these classes in new features rather than inventing one-off materials.
+ * Existing feature-specific layout stays in styles.css.
+ */
+.ui-glass-primary,
+.ui-glass-card {
+  background: var(--color-glass-strong);
+  border: 1px solid var(--color-border-emphasis);
+  box-shadow: var(--shadow-glass);
+  -webkit-backdrop-filter: var(--glass-filter);
+  backdrop-filter: var(--glass-filter);
+  color: var(--color-text);
+}
+.ui-glass-primary { border-radius: var(--radius-panel); }
+.ui-glass-card {
+  background: var(--color-glass);
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-card);
+  border-radius: var(--radius-card);
+}
+.ui-soft-surface {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  background: var(--color-glass);
+}
+.ui-editorial-surface {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-info-surface);
+}
+.ui-button {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: 1px solid transparent;
+  border-radius: var(--radius-control);
+  padding: var(--space-3) var(--space-4);
+  font: 700 var(--font-size-body)/1.2 var(--font-ui);
+  transition: background var(--motion-fast), border-color var(--motion-fast);
+}
+.ui-button-primary {
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+}
+.ui-button-primary:hover { background: var(--color-primary-soft); }
+.ui-button-secondary {
+  color: var(--color-text);
+  background: var(--color-glass);
+  border-color: var(--color-border-emphasis);
+}
+.ui-button-secondary:hover { background: var(--color-glass-hover); }
+.ui-button:disabled { opacity: .6; cursor: not-allowed; }
+.ui-chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xs);
+  padding: var(--space-1) var(--space-2);
+  color: var(--color-text-muted);
+  background: var(--color-glass);
+  font: 600 var(--font-size-caption)/1.3 var(--font-ui);
+}
+.ui-text-muted { color: var(--color-text-muted); }
+.ui-eyebrow {
+  font: 800 var(--font-size-caption)/1.4 var(--font-ui);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .ui-glass-primary, .ui-glass-card {
+    background: var(--color-surface);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ui-button { transition: none; }
+}
