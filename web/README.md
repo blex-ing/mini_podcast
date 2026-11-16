@@ -1,8 +1,9 @@
-# Mini Podcast Studio — Cloudflare Pages
+# Mini Podcast Studio — Cloudflare Workers
 
-React + TypeScript estricto + Vite. El frontend se aloja en Cloudflare Pages. Supabase es opcional y **no es necesario para ver la página**.
+Interfaz React + TypeScript estricto + Vite. Se despliega como **Cloudflare Workers Static Assets** con `wrangler.jsonc` en la raíz del repositorio. No requiere Supabase para mostrar la interfaz.
 
-## Local
+## Desarrollo local
+
 ```bash
 cd web
 npm install
@@ -10,19 +11,28 @@ npm run build
 npm run dev
 ```
 
-## Cloudflare Pages
-En Cloudflare → Workers & Pages → Create application → Pages → Connect to Git:
-- GitHub: `blex-ing/mini_podcast`
-- Production branch: `master`
-- Root directory: `web`
-- Build command: `npm run build`
-- Output directory: `dist`
-- Node.js: 22
+## Cloudflare Workers Builds — GitHub
 
-Cloudflare genera Preview deployments de las ramas y PR configuradas. El proyecto de Pages debe conectarse a GitHub desde la cuenta del propietario; subir archivos a GitHub no crea automáticamente la URL pública.
+Conecta el repositorio `blex-ing/mini_podcast` en Cloudflare → Workers & Pages → Create → Import Git repository → Worker.
+
+- Project name: `mini-podcast`
+- Production branch: `master` (importante: el default de GitHub sigue siendo `main` hasta cambiarlo)
+- Path (repositorio): `/`
+- Build command: `cd web && npm install && npm run build`
+- Deploy command: `npx wrangler deploy`
+- Preview command: `npx wrangler preview`
+- Enable Preview builds: activado
+- Protect with Cloudflare Access: opcional, desactivado para demo pública
+- Build token: preferentemente específico del proyecto
+
+**Atención:** `wrangler.jsonc` en la raíz es imprescindible. Publica `./web/dist` como assets estáticos con fallback SPA. El ajuste de directorio web se hace en el comando de build; no hay que cambiar el Path del repositorio a `web`.
+
+Cloudflare crea URL `*.workers.dev` al completar el primer deploy; este repositorio no acredita por sí solo que exista un despliegue publicado.
 
 ## Persistencia opcional
-Cuando se quiera guardar borradores entre dispositivos, crear proyecto Supabase, ejecutar `supabase/migrations/0001_episodes.sql` y configurar variables públicas `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`. No poner jamás una `service_role` key en variables VITE. Configurar correctamente los Redirect URLs en Supabase Auth para los dominios Cloudflare.
 
-## Alcance inicial
-La versión Preview valida el formato de las URLs y muestra interfaz, biblioteca de ejemplo y pasos futuros. **No extrae artículos ni genera audio**. Las tarjetas de biblioteca son ejemplos visuales. La extracción Python heredada sigue intacta.
+Si en el futuro se activa Supabase, añadir `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` como variables públicas del build, crear el esquema `supabase/migrations/0001_episodes.sql` y configurar los Redirect URLs de Auth. Nunca introducir claves privadas en variables VITE.
+
+## Alcance
+
+La demo valida el formato básico de URLs y permite visualizar el estudio, las etapas y la biblioteca. Sin Supabase no guarda datos. No extrae artículos ni genera audio todavía. Las tarjetas son ejemplos visuales; Python legado permanece intacto.
