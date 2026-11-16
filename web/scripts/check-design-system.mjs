@@ -27,6 +27,18 @@ function inspect(file) {
     errors.push(`${rel}: named CSS color ${match[1]}; use a token instead`)
   }
   if (file.endsWith('.css')) {
+    for (const match of source.matchAll(/border-radius\s*:\s*([^;}]+)/g)) {
+      const value = match[1].trim()
+      if (!/^(?:var\(--radius-[\w-]+\)|50%|inherit)$/.test(value)) {
+        errors.push(`${rel}: border-radius must use a canonical --radius-* token; got ${value}`)
+      }
+    }
+    for (const match of source.matchAll(/box-shadow\s*:\s*([^;}]+)/g)) {
+      const value = match[1].trim()
+      if (!/^(?:var\(--shadow-[\w-]+\)|none)$/.test(value)) {
+        errors.push(`${rel}: box-shadow must use a canonical --shadow-* token; got ${value}`)
+      }
+    }
     for (const match of source.matchAll(/var\(\s*(--[\w-]+)/g)) {
       if (/^--(?:color|palette|radius|font|space|shadow|glass|motion|layout)-/.test(match[1]) && !registered.has(match[1])) {
         errors.push(`${rel}: unknown design token ${match[1]}`)
