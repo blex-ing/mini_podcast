@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.2 — Cloudflare Workers redirect fix
+- Eliminar `web/public/_redirects` por bucle infinito (Cloudflare 100324).
+- Conservar el fallback SPA nativo de Workers en `wrangler.jsonc`.
+
 ## v0.2.1 — Cloudflare Preview fix
 - Habilitar `previews: {}` para Workers Previews.
 - Aclarar comandos separados de publicación y vista previa.
