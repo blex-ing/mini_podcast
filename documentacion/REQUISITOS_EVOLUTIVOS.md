@@ -16,7 +16,7 @@ Este documento constituye el registro acumulativo de requisitos del producto. No
 | RNF-GLASS-002 | Accesibilidad | Reducir movimiento/transparencia según preferencias y fallback sin filtros | en_desarrollo | feature/hybrid-liquid-glass | QA pendiente |
 | RNF-GLASS-003 | Consistencia | Usar tokens y componentes canónicos sin colores arbitrarios | en_desarrollo | feature/hybrid-liquid-glass | CI GitHub Actions correcta (PR #19) |
 | RNF-VIS-001 | Control visual | Generar capturas de Studio y Roadmap y detectar desbordamientos, colisiones y fallos de interacción antes de Cloudflare | en_desarrollo | feature/hybrid-liquid-glass | Playwright + GitHub Actions, validación en curso |
-| RNF-GLASS-005 | Coherencia UI | Paneles equivalentes comparten componente y respuesta al cursor | en_desarrollo | feature/hybrid-liquid-glass | Corrección de Review PR #19; QA pendiente |
+| RNF-GLASS-005 | Coherencia UI | Paneles equivalentes comparten componente y respuesta al cursor | en_desarrollo | feature/hybrid-liquid-glass | Studio: 2 paneles; Roadmap: 3 KPI con HybridGlassSurface; revisión de PR #19 |
 | RNF-GLASS-004 | Despliegue | Validar en Preview de Cloudflare antes de fusionar a develop/master | en_desarrollo | feature/hybrid-liquid-glass | URL Preview y revisión visual pendientes |
 
 ## Feature: Glass híbrido (MP-GLASS-001)
@@ -26,12 +26,13 @@ Este documento constituye el registro acumulativo de requisitos del producto. No
 ### RF-GLASS-001 — Alcance funcional
 1. Cabecera/navegación: material translúcido avanzado con iluminación de borde, profundidad y respuesta al puntero **solo donde sea útil**.
 2. Controles destacados: acciones principales y filtros de selección con realces definidos y transiciones discretas.
-3. Paneles destacados: **ambas cajas hermanas** de Studio («Nuevo proyecto» y «De la lectura al audio») deben compartir el mismo material y la misma respuesta al cursor, además de la métrica principal del Roadmap; el resto de tarjetas conserva superficies Soft/Glass básico.
+3. Paneles destacados: **ambas cajas hermanas** de Studio («Nuevo proyecto» y «De la lectura al audio») deben compartir el mismo material y la misma respuesta al cursor, y **las tres métricas KPI del Roadmap** («Avance de desarrollo», «Publicado en master», «Features completadas»), que deben compartir el mismo tratamiento interactivo; el resto conserva superficies Soft/Glass básico.
 4. Layout coherente en 320/390/768/1440 px y navegación usable con teclado o touch.
 5. El material debe apoyarse en `tokens.css` y clases documentadas de `primitives.css`; ningún color nuevo dentro de los componentes.
 
 ### RNF-GLASS-001 — Rendimiento
-- Máximo un área de navegación y dos superficies destacadas con material avanzado por vista; no aplicarlo de forma masiva a bibliotecas o listas.
+- Aplicar el material a una navegación, los dos paneles principales de Studio y al grupo de tres KPI del Roadmap. Los KPI constituyen un mismo grupo jerárquico y comparten componente, pero cada tarjeta responde de forma independiente.
+- En pantallas de 900 px o menos y dispositivos táctiles, desactivar el filtro de fondo **en los KPI** y mantener solo un reflejo estático y una superficie sólida. Evitar filtros de fondo repetidos en listas de features, hitos y tarjetas densas.
 - `backdrop-filter` solo cuando esté soportado y el usuario no solicite transparencia reducida; fallback sólido siempre disponible.
 - Sin WebGL, `feTurbulence` animado, `requestAnimationFrame` permanente ni seguimiento de puntero en cada tarjeta.
 - Interacción con eventos de puntero únicamente en dispositivos `hover: hover` y `pointer: fine`; sin cálculo React por frame.
@@ -49,9 +50,9 @@ Este documento constituye el registro acumulativo de requisitos del producto. No
 - Sin alterar flujo de autenticación, borradores, roadmap ni API.
 
 ### RNF-GLASS-005 — Paridad entre componentes equivalentes
-- Los paneles vecinos de una misma sección y jerarquía visual deben usar el mismo componente reutilizable `HybridGlassSurface`.
+- Los paneles vecinos de una misma sección y jerarquía visual deben usar el mismo componente reutilizable `HybridGlassSurface`: los dos de Studio y los tres KPI superiores de Roadmap.
 - El material y la respuesta del reflejo al cursor se definen en un único lugar; queda prohibido actualizar una caja y dejar otra equivalente con tratamiento antiguo.
-- Criterio de aceptación visual: mover el cursor sobre «Nuevo proyecto» y sobre «De la lectura al audio» produce el mismo tipo de iluminación, con intensidad y transición coherentes; comprobar además superficies en móvil sin cursor.
+- Criterio de aceptación visual: mover el cursor sobre los dos paneles de Studio o sobre cualquiera de los tres KPI produce el mismo tipo de iluminación, con intensidad y transición coherentes; comprobar superficies en móvil sin cursor. Las tarjetas de hitos y las filas de features siguen siendo ligeras.
 - Evidencia: comentario del usuario y captura de pantalla recibida durante la revisión del PR #19. Validación visual corregida aún pendiente.
 
 ### RNF-GLASS-004 — Promoción controlada
@@ -61,6 +62,9 @@ Este documento constituye el registro acumulativo de requisitos del producto. No
 4. Recoger aprobación visual explícita del usuario para escritorio y móvil.
 5. **Solo tras aprobación:** PR feature → `develop`, `release/vX.Y.Z` → `master`; etiqueta y GitHub Release automáticas.
 6. Actualizar en este registro estado, PR y release reales, y en el Roadmap si se decide incorporarlo como feature ponderada.
+
+### Decisión UI — ADR-GLASS-002 (16-11-2026)
+Tras revisar la captura aportada por el usuario del Roadmap, se detectó que solo «Avance de desarrollo» usaba reflejos interactivos, mientras «Publicado en master» y «Features completadas» no. Se decide mantener el Glass híbrido en los **tres KPI equivalentes**, compartiendo componente, y limitar el trabajo gráfico mediante fallback sólido y sin backdrop-filter en KPI móviles. Los hitos, filas de features y biblioteca conservan superficies ligeras. La corrección queda sujeta a QA automático y aprobación visual de la Preview antes de fusionar.
 
 ## Evidencias del prototipo
 - Pull Request borrador: https://github.com/blex-ing/mini_podcast/pull/19
