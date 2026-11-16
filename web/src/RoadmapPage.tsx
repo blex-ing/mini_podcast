@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { ArrowLeft, ArrowUpRight, CheckCircle2, CircleDashed, GitPullRequest, Layers3, RefreshCw, ShieldCheck } from 'lucide-react'
 import { baseStatus, percentage, refreshFromGithub, roadmap, type FeatureStatus } from './data/roadmap'
+import { moveGlassLight } from './ui/moveGlassLight'
 
 const statusText = (s: FeatureStatus) => s.integrated ? 'Completada' : s.state === 'in_progress' ? 'En desarrollo' : s.state === 'blocked' ? 'Bloqueada' : 'Pendiente'
 
@@ -26,7 +27,7 @@ export default function RoadmapPage() {
     <div className="roadmap-breadcrumb"><a href="#inicio"><ArrowLeft size={16}/> Volver al estudio</a><span>/</span><span>Plan de desarrollo</span></div>
     <div className="roadmap-hero"><div className="eyebrow">— VISIÓN Y EVOLUCIÓN DEL PRODUCTO</div><div className="roadmap-hero-grid"><div><h1>Construyendo el <em>futuro del audio.</em></h1><p>Una hoja de ruta transparente para transformar artículos, textos y conocimiento en podcasts. Un único motor, diferentes experiencias — incluida <strong>Un Capítulo con Jesús</strong>.</p></div><div className="roadmap-sync ui-glass-card"><Layers3 size={23}/><span>ROADMAP v{roadmap.planVersion}</span><small>{sync==='loading'?'Consultando GitHub…':sync==='live'?'Sincronizado con GitHub':'Sin conexión a GitHub · Estado de referencia'}</small><button onClick={()=>{setSync('loading');setRefreshKey(x=>x+1)}} aria-label="Actualizar estados desde GitHub" title="Actualizar estados"><RefreshCw size={17}/></button></div></div></div>
     <div className="roadmap-stats">
-      <div className="roadmap-stat roadmap-main-stat ui-glass-card"><span>AVANCE DE DESARROLLO</span><strong>{development}%</strong><div className="roadmap-bar"><i style={{width:`${development}%`}}/></div><small>{100-development}% del alcance pendiente de integrar</small></div>
+      <div className="roadmap-stat roadmap-main-stat ui-hybrid-glass" onPointerMove={moveGlassLight}><span>AVANCE DE DESARROLLO</span><strong>{development}%</strong><div className="roadmap-bar"><i style={{width:`${development}%`}}/></div><small>{100-development}% del alcance pendiente de integrar</small></div>
       <div className="roadmap-stat ui-glass-card"><span>PUBLICADO EN MASTER</span><strong>{production}%</strong><div className="roadmap-bar secondary"><i style={{width:`${production}%`}}/></div><small>Disponible en la rama estable</small></div>
       <div className="roadmap-stat"><span>FEATURES COMPLETADAS</span><strong>{completed}<small> / {total}</small></strong><div className="roadmap-minirow"><CheckCircle2 size={16}/>{active} en desarrollo actualmente</div></div>
     </div>
