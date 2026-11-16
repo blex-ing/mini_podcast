@@ -51,8 +51,7 @@ walk(root)
 // panels must use the same interactive hybrid glass primitive.
 const studio = readFileSync(resolve('src/App.tsx'), 'utf8')
 for (const name of ['editor', 'process']) {
-  const matching = new RegExp('<HybridGlassSurface\\\\s+className="panel ' + name + '"')
-  if (!matching.test(studio)) {
+  if (!studio.includes('<HybridGlassSurface className="panel ' + name + '"')) {
     errors.push('Studio ' + name + ' panel must use HybridGlassSurface, not a standalone glass class')
   }
 }
