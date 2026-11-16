@@ -65,6 +65,7 @@ test('Equivalent Studio panels share hybrid glass and pointer response', async (
   await expect(editor).toHaveClass(/ui-hybrid-glass/)
   await expect(process).toHaveClass(/ui-hybrid-glass/)
   for (const panel of [editor, process]) {
+    await panel.scrollIntoViewIfNeeded()
     const box = await panel.boundingBox()
     expect(box).not.toBeNull()
     if (!box) continue
