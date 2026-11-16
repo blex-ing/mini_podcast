@@ -91,7 +91,7 @@
   isolation: isolate;
   background: var(--color-surface);
   border: 1px solid var(--glass-hybrid-edge-soft);
-  box-shadow: var(--glass-hybrid-shadow);
+  box-shadow: var(--shadow-hybrid);
 }
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
   .ui-hybrid-glass {
@@ -118,7 +118,7 @@
 }
 .ui-hybrid-glass::after {
   z-index: 1;
-  box-shadow: inset 0 1px 0 var(--glass-hybrid-edge),
+  box-shadow: var(--shadow-hybrid-control),
               inset 1px 0 0 var(--glass-hybrid-edge-soft),
               inset -1px 0 0 var(--glass-hybrid-edge-soft);
   background: linear-gradient(110deg, var(--glass-hybrid-glint), transparent 24%, transparent 76%, var(--glass-hybrid-edge-soft));
@@ -133,7 +133,7 @@
 .ui-hybrid-control {
   position: relative;
   overflow: hidden;
-  box-shadow: var(--glass-hybrid-shadow);
+  box-shadow: var(--shadow-hybrid);
   transition: box-shadow var(--glass-hybrid-transition), transform var(--motion-fast);
 }
 .ui-hybrid-control::after {
@@ -142,7 +142,7 @@
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  box-shadow: inset 0 1px 0 var(--glass-hybrid-edge);
+  box-shadow: var(--shadow-hybrid-control);
   background: linear-gradient(130deg, var(--glass-hybrid-glint), transparent 39%);
   opacity: .42;
 }
@@ -173,7 +173,7 @@
   border-color: var(--glass-hybrid-edge-soft);
 }
 .nav.ui-hybrid-glass .brand-icon {
-  box-shadow: inset 0 1px 0 var(--glass-hybrid-edge);
+  box-shadow: var(--shadow-hybrid-control);
 }
 .editor.ui-hybrid-glass {
   border-radius: var(--radius-panel);
@@ -186,7 +186,7 @@
 }
 .nav-cta.ui-hybrid-control,
 .roadmap-filter button.selected {
-  box-shadow: inset 0 1px 0 var(--glass-hybrid-edge-soft);
+  box-shadow: var(--shadow-hybrid-selected);
 }
 @media (max-width: 580px) {
   .nav.ui-hybrid-glass { margin-top: var(--space-2); }
