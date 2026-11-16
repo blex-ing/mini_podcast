@@ -97,9 +97,14 @@
   --glass-hybrid-edge-soft: color-mix(in srgb, var(--color-primary) 17%, transparent);
   --glass-hybrid-light: color-mix(in srgb, var(--color-white) 23%, transparent);
   --glass-hybrid-glint: color-mix(in srgb, var(--color-white) 34%, transparent);
-  --glass-hybrid-shadow: 0 12px 32px color-mix(in srgb, var(--color-black) 24%, transparent),
+  --shadow-hybrid: 0 12px 32px color-mix(in srgb, var(--color-black) 24%, transparent),
     inset 0 1px 0 color-mix(in srgb, var(--color-white) 24%, transparent),
     inset 0 -1px 0 color-mix(in srgb, var(--color-primary) 14%, transparent);
+  --shadow-hybrid-rim: inset 0 1px 0 var(--glass-hybrid-edge), inset 1px 0 0 var(--glass-hybrid-edge-soft), inset -1px 0 0 var(--glass-hybrid-edge-soft);
+  --shadow-hybrid-control: inset 0 1px 0 var(--glass-hybrid-edge);
+  --shadow-hybrid-selected: inset 0 1px 0 var(--glass-hybrid-edge-soft);
+  --glass-pointer-x: 50%;
+  --glass-pointer-y: 0%;
   --glass-hybrid-transition: 220ms;
   --motion-fast: 150ms;
   --motion-normal: 240ms;
