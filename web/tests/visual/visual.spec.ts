@@ -97,3 +97,46 @@ test('Reduced motion keeps pages functional', async ({ page }) => {
   await expect(page.locator('.roadmap-page')).toBeVisible()
   await inspectLayout(page, 'reduced-motion-mobile')
 })
+
+
+test('All Roadmap KPI cards have identical interactive hybrid glass behavior', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('/#roadmap', { waitUntil: 'networkidle' })
+  const kpis = page.locator('.roadmap-stats > .roadmap-stat')
+  await expect(kpis).toHaveCount(3)
+  for (let i = 0; i < 3; i++) {
+    const card = kpis.nth(i)
+    await expect(card).toHaveClass(/ui-hybrid-glass/)
+    await card.scrollIntoViewIfNeeded()
+    const rect = await card.boundingBox()
+    expect(rect).not.toBeNull()
+    if (!rect) continue
+    await page.mouse.move(rect.x + rect.width * .4, rect.y + rect.height * .25)
+    await expect.poll(() => card.evaluate(el => (el as HTMLElement).style.getPropertyValue('--glass-pointer-x'))).not.toBe('')
+    const effect = await card.evaluate(el => ({
+      filter: getComputedStyle(el).backdropFilter,
+      highlight: getComputedStyle(el, '::before').backgroundImage,
+    }))
+    expect(effect.filter).not.toBe('none')
+    expect(effect.highlight).toContain('radial-gradient')
+  }
+  await page.screenshot({ path: 'test-results/visual/roadmap-kpi-hover-desktop.png', fullPage: true })
+})
+
+test('Mobile KPI glass has static lightweight treatment', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/#roadmap', { waitUntil: 'networkidle' })
+  const kpis = page.locator('.roadmap-stats > .roadmap-stat')
+  await expect(kpis).toHaveCount(3)
+  for (let i = 0; i < 3; i++) {
+    const card = kpis.nth(i)
+    await expect(card).toHaveClass(/ui-hybrid-glass/)
+    const effect = await card.evaluate(el => ({
+      filter: getComputedStyle(el).backdropFilter,
+      highlight: getComputedStyle(el, '::before').backgroundImage,
+    }))
+    expect(effect.filter).toBe('none')
+    expect(effect.highlight).toContain('radial-gradient')
+  }
+  await inspectLayout(page, 'lightweight-kpi-mobile')
+})
