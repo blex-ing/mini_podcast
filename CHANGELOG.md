@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.1 — Cloudflare Preview fix
+- Habilitar `previews: {}` para Workers Previews.
+- Aclarar comandos separados de publicación y vista previa.
+
 ## v0.2.0 — Interfaz Studio y Cloudflare Workers
 - Primer frontend responsive React/Vite/TypeScript con formulario y biblioteca de ejemplo.
 - Configuración `wrangler.jsonc` para publicar assets estáticos en Cloudflare Workers.
