@@ -81,10 +81,10 @@ El material `ui-hybrid-glass` es **una aproximación web** a Liquid Glass, no el
 Aplicar **solo** a:
 - Cabecera (`nav.ui-hybrid-glass`).
 - Panel principal para crear un episodio (`editor.ui-hybrid-glass`).
-- Métrica principal del Roadmap (`roadmap-main-stat.ui-hybrid-glass`).
+- Los **tres KPI hermanos** del Roadmap, renderizados mediante `HybridGlassSurface`: desarrollo, publicado en master y features completadas.
 - Botones principales con `ui-hybrid-control`.
 
-El resto mantiene Glass básico o Soft Surface, evitando múltiples `backdrop-filter` simultáneos en bibliotecas y listas. Los tokens canónicos se encuentran en `web/src/styles/tokens.css` con prefijo `--glass-hybrid-*`.
+El resto mantiene Glass básico o Soft Surface, evitando múltiples `backdrop-filter` simultáneos en bibliotecas y listas. En los KPI, la translucidez con blur se limita a pantallas grandes con puntero fino; en móvil o pantalla táctil las tres tarjetas mantienen el brillo especular pero eliminan `backdrop-filter` para reducir coste gráfico. Los tokens canónicos se encuentran en `web/src/styles/tokens.css` con prefijo `--glass-hybrid-*`.
 
 **Calidad y accesibilidad:** `@supports` ofrece fondo sólido cuando el blur no existe; `prefers-reduced-transparency` elimina transparencia; `prefers-reduced-motion` elimina desplazamientos; el seguimiento del puntero no usa estado React, y en móviles touch se mantiene la iluminación fija.
 
@@ -96,3 +96,18 @@ El resto mantiene Glass básico o Soft Surface, evitando múltiples `backdrop-fi
 - Los paneles secundarios fuera de ese grupo pueden mantener Soft Surface o Glass básico por jerarquía, pero no pueden diferir arbitrariamente dentro de la misma pareja visual.
 - Toda nueva modificación del mecanismo del reflejo se realiza en el componente/primitiva común y debe probarse con el cursor sobre ambas cajas.
 - La comparación visual debe validarse en la Preview de Cloudflare antes de integrar la feature.
+
+## 13. Familias de componentes y materiales coherentes (ADR-GLASS-002)
+
+| Familia | Material | Comportamiento |
+|---|---|---|
+| Cabecera/navegación | Hybrid Glass | Luz reactiva y fallback por accesibilidad |
+| Paneles principales de Studio (2) | `HybridGlassSurface` | Mismo reflejo interactivo en ambos |
+| KPI Roadmap (3) | `HybridGlassSurface` | Mismo reflejo en los tres; en móvil, sin blur intensivo |
+| Tarjetas de hitos | Glass básico ligero | Sin seguimiento del puntero ni backdrop-filter repetido |
+| Filas de features y biblioteca | Soft Surface | Sin efecto óptico pesado |
+| CTA principal | Hybrid Control | Brillo de borde e interacción breve |
+
+**Regla transversal:** si dos componentes pertenecen a una misma familia y jerarquía, no se les pueden asignar materiales o interacciones divergentes. En caso de duda, crear o ampliar un componente reutilizable, no copiar CSS a mano.
+
+`web/scripts/check-design-system.mjs` verifica la paridad entre los dos paneles de Studio y los tres KPI de Roadmap. `web/tests/visual/visual.spec.ts` comprueba la reacción al puntero en desktop y el fallback ligero en móvil. Una experiencia visual equivalente **no implica** que todo el sitio use blur: prima la jerarquía y el rendimiento.
