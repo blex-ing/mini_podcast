@@ -192,3 +192,24 @@
   .nav nav a:last-child { display: inline-flex; }
   .nav nav a:nth-child(3) { display: none; }
 }
+
+/* Compact iPhone SE / 320px: avoid clipping header actions behind site overflow. */
+@media (max-width: 360px) {
+  .nav.ui-hybrid-glass {
+    gap: var(--space-1);
+    padding-inline: var(--space-3);
+  }
+  .nav.ui-hybrid-glass .brand {
+    font-size: 18px;
+    letter-spacing: -0.8px;
+  }
+  .nav.ui-hybrid-glass .brand-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: var(--space-1);
+  }
+  .nav.ui-hybrid-glass nav {
+    gap: var(--space-2);
+    font-size: 10px;
+  }
+}
