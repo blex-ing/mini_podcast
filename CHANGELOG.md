@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.3.0 — Arquitectura y Roadmap
+- Visión de producto y definición del MVP general de podcasts.
+- Arquitectura modular reutilizable para perfiles especializados, incluido Un Capítulo con Jesús.
+- Página /#roadmap con 5 hitos, 12 features y avance ponderado de desarrollo y producción.
+- Consulta GitHub para detectar PRs integrados y publicaciones en master.
+- Comprobación de integridad del roadmap en CI.
+
 ## v0.2.2 — Cloudflare Workers redirect fix
 - Eliminar `web/public/_redirects` por bucle infinito (Cloudflare 100324).
 - Conservar el fallback SPA nativo de Workers en `wrangler.jsonc`.
