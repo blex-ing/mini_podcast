@@ -1,0 +1,26 @@
+# Actualización periódica de dependencias con revisión por PR (no auto-merge).
+# Comprobar siempre CI, QA visual y riesgos antes de integrar.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "develop"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Madrid"
+    open-pull-requests-limit: 5
+    cooldown:
+      default-days: 7
+  - package-ecosystem: "npm"
+    directory: "/web"
+    target-branch: "develop"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Madrid"
+    open-pull-requests-limit: 5
+    cooldown:
+      default-days: 7

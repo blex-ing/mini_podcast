@@ -1,7 +1,7 @@
 {
   "name": "mini-podcast-web",
   "private": true,
-  "version": "0.4.0",
+  "version": "0.5.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "validate:roadmap": "node scripts/validate-roadmap.mjs",
-    "check:design": "node scripts/check-design-system.mjs"
+    "check:design": "node scripts/check-design-system.mjs",
+    "test:visual": "playwright test --config playwright.visual.config.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.0",
@@ -30,6 +31,7 @@
     "globals": "^16.3.0",
     "typescript": "~5.9.2",
     "typescript-eslint": "^8.41.0",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "@playwright/test": "^1.58.2"
   }
 }
