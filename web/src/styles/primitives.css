@@ -118,9 +118,7 @@
 }
 .ui-hybrid-glass::after {
   z-index: 1;
-  box-shadow: var(--shadow-hybrid-control),
-              inset 1px 0 0 var(--glass-hybrid-edge-soft),
-              inset -1px 0 0 var(--glass-hybrid-edge-soft);
+  box-shadow: var(--shadow-hybrid-rim);
   background: linear-gradient(110deg, var(--glass-hybrid-glint), transparent 24%, transparent 76%, var(--glass-hybrid-edge-soft));
   -webkit-mask-image: linear-gradient(to bottom, var(--color-black), transparent 58%);
   mask-image: linear-gradient(to bottom, var(--color-black), transparent 58%);
