@@ -1,0 +1,258 @@
+{
+  "schemaVersion": 1,
+  "planVersion": "1.0",
+  "title": "Mini Podcast — hoja de ruta",
+  "description": "Motor general de podcasts con IA y productos especializados, incluido Un Capítulo con Jesús.",
+  "repository": "blex-ing/mini_podcast",
+  "milestones": [
+    {
+      "id": "base",
+      "title": "Base tecnológica",
+      "description": "Control de versiones, interfaz y despliegue",
+      "order": 1
+    },
+    {
+      "id": "engine",
+      "title": "Núcleo e ingesta",
+      "description": "Contratos y entrada de contenido segura",
+      "order": 2
+    },
+    {
+      "id": "scripting",
+      "title": "Inteligencia editorial",
+      "description": "Del contenido al guion editable",
+      "order": 3
+    },
+    {
+      "id": "audio",
+      "title": "Producción y entrega de audio",
+      "description": "Voz y artefactos reproducibles",
+      "order": 4
+    },
+    {
+      "id": "products",
+      "title": "Producto y especializaciones",
+      "description": "Biblioteca y perfiles editoriales reutilizables",
+      "order": 5
+    }
+  ],
+  "features": [
+    {
+      "id": "git-foundation",
+      "milestone": "base",
+      "title": "Flujo Git y calidad inicial",
+      "description": "Ramas, PRs, CI y releases semánticas.",
+      "weight": 6,
+      "priority": "high",
+      "branch": "feature/establecer-flujo-desarrollo",
+      "acceptance": [
+        "CI inicial funcional",
+        "Feature y release fusionadas por PR"
+      ],
+      "baseline": {
+        "develop": true,
+        "master": true,
+        "pr": 1
+      }
+    },
+    {
+      "id": "studio-ui",
+      "milestone": "base",
+      "title": "Interfaz Mini Podcast Studio",
+      "description": "Web responsive con formulario y biblioteca de ejemplo.",
+      "weight": 8,
+      "priority": "high",
+      "branch": "feature/primera-interfaz-supabase",
+      "acceptance": [
+        "Web visible en móvil y escritorio",
+        "Compilación TypeScript y Vite en CI"
+      ],
+      "baseline": {
+        "develop": true,
+        "master": true,
+        "pr": 4
+      }
+    },
+    {
+      "id": "cloudflare-hosting",
+      "milestone": "base",
+      "title": "Despliegues Cloudflare Workers",
+      "description": "Hosting estático SPA y correcciones iniciales del despliegue.",
+      "weight": 6,
+      "priority": "high",
+      "branch": "feature/fix-cloudflare-redirect-loop",
+      "acceptance": [
+        "Workers Static Assets configurado",
+        "Despliegue confirmado por usuario"
+      ],
+      "baseline": {
+        "develop": true,
+        "master": true,
+        "pr": 10
+      }
+    },
+    {
+      "id": "roadmap-management",
+      "milestone": "base",
+      "title": "Arquitectura documentada y Roadmap web",
+      "description": "Visión/MVP, arquitectura y seguimiento transparente de PRs con avance ponderado.",
+      "weight": 5,
+      "priority": "high",
+      "branch": "feature/roadmap-arquitectura-v1",
+      "acceptance": [
+        "Visión y arquitectura versionadas",
+        "Roadmap responsive por hitos y features",
+        "Estados integrados/publicados vinculados a GitHub",
+        "CI valida pesos y estructura"
+      ],
+      "baseline": {
+        "develop": false,
+        "master": false
+      }
+    },
+    {
+      "id": "core-engine",
+      "milestone": "engine",
+      "title": "Motor modular y contratos",
+      "description": "Modelo de dominio Python, casos de uso e interfaces intercambiables.",
+      "weight": 9,
+      "priority": "high",
+      "branch": "feature/core-engine",
+      "acceptance": [
+        "Protocolos y modelos tipados",
+        "Pruebas unitarias sin proveedores reales",
+        "Motor independiente de UI"
+      ],
+      "baseline": {
+        "develop": false,
+        "master": false
+      }
+    },
+    {
+      "id": "content-ingestion",
+      "milestone": "engine",
+      "title": "Extracción y limpieza de contenido",
+      "description": "Procesamiento de URL/texto, vista previa y protección SSRF en backend.",
+      "weight": 13,
+      "priority": "high",
+      "branch": "feature/content-ingestion",
+      "acceptance": [
+        "Extracción de artículos públicos validada",
+        "Validación SSRF, redirects, tamaño y timeout",
+        "Pruebas de errores y extracción"
+      ],
+      "baseline": {
+        "develop": false,
+        "master": false
+      }
+    },
+    {
+      "id": "ai-script-generation",
+      "milestone": "scripting",
+      "title": "Generación y edición de guiones IA",
+      "description": "Guiones editables de 3–5 min con atribución a las fuentes.",
+      "weight": 14,
+      "priority": "high",
+      "branch": "feature/ai-script-generation",
+      "acceptance": [
+        "LLM inyectable y simulable",
+        "Guion fiel a la fuente y editable",
+        "Revisiones y referencias preservadas"
+      ],
+      "baseline": {
+        "develop": false,
+        "master": false
+      }
+    },
+    {
+      "id": "audio-generation",
+      "milestone": "audio",
+      "title": "Generación de voz TTS",
+      "description": "Transformación de guion aprobado a audio mediante proveedor desacoplado.",
+      "weight": 14,
+      "priority": "high",
+      "branch": "feature/audio-generation",
+      "acceptance": [
+        "Audio generado y descargable",
+        "Errores y límites de proveedor gestionados",
+        "Pruebas con proveedor simulado"
+      ],
+      "baseline": {
+        "develop": false,
+        "master": false
+      }
+    },
+    {
+      "id": "audio-delivery",
+      "milestone": "audio",
+      "title": "Procesamiento y almacenamiento MP3",
+      "description": "Normalización, duración, reproducción y archivos privados.",
+      "weight": 8,
+      "priority": "high",
+      "branch": "feature/audio-delivery",
+      "acceptance": [
+        "MP3 reproducible y descargable",
+        "Almacenamiento privado y acceso autorizado",
+        "Metadatos de duración y versión"
+      ],
+      "baseline": {
+        "develop": false,
+        "master": false
+      }
+    },
+    {
+      "id": "episode-library",
+      "milestone": "products",
+      "title": "Biblioteca y trabajos persistentes",
+      "description": "Historial de episodios, estados, recuperación y acceso por usuario.",
+      "weight": 7,
+      "priority": "high",
+      "branch": "feature/episode-library",
+      "acceptance": [
+        "Estados y errores visibles",
+        "Historial por usuario con autorización",
+        "Reintentos sin duplicar trabajo"
+      ],
+      "baseline": {
+        "develop": false,
+        "master": false
+      }
+    },
+    {
+      "id": "product-profiles",
+      "milestone": "products",
+      "title": "Motor de perfiles especializados",
+      "description": "Configuración por producto de guion, voz, reglas e identidad visual.",
+      "weight": 5,
+      "priority": "medium",
+      "branch": "feature/product-profiles",
+      "acceptance": [
+        "Perfil general reutiliza motor",
+        "Plantillas separadas de proveedores",
+        "Sin lógica especial en núcleo"
+      ],
+      "baseline": {
+        "develop": false,
+        "master": false
+      }
+    },
+    {
+      "id": "christian-profile",
+      "milestone": "products",
+      "title": "Un Capítulo con Jesús",
+      "description": "Perfil bíblico con citas verificadas y revisión editorial.",
+      "weight": 5,
+      "priority": "medium",
+      "branch": "feature/christian-podcast-profile",
+      "acceptance": [
+        "Plantilla bíblica y estilo propio",
+        "Referencias y traducción identificadas",
+        "Aprobación editorial antes de publicar"
+      ],
+      "baseline": {
+        "develop": false,
+        "master": false
+      }
+    }
+  ]
+}
