@@ -15,6 +15,7 @@ Este documento constituye el registro acumulativo de requisitos del producto. No
 | RNF-GLASS-001 | Rendimiento | Restringir blur intensivo y evitar filtros caros en listas / tarjetas | en_desarrollo | feature/hybrid-liquid-glass | QA móvil pendiente |
 | RNF-GLASS-002 | Accesibilidad | Reducir movimiento/transparencia según preferencias y fallback sin filtros | en_desarrollo | feature/hybrid-liquid-glass | QA pendiente |
 | RNF-GLASS-003 | Consistencia | Usar tokens y componentes canónicos sin colores arbitrarios | en_desarrollo | feature/hybrid-liquid-glass | CI GitHub Actions correcta (PR #19) |
+| RNF-GLASS-005 | Coherencia UI | Paneles equivalentes comparten componente y respuesta al cursor | en_desarrollo | feature/hybrid-liquid-glass | Corrección de Review PR #19; QA pendiente |
 | RNF-GLASS-004 | Despliegue | Validar en Preview de Cloudflare antes de fusionar a develop/master | en_desarrollo | feature/hybrid-liquid-glass | URL Preview y revisión visual pendientes |
 
 ## Feature: Glass híbrido (MP-GLASS-001)
@@ -24,7 +25,7 @@ Este documento constituye el registro acumulativo de requisitos del producto. No
 ### RF-GLASS-001 — Alcance funcional
 1. Cabecera/navegación: material translúcido avanzado con iluminación de borde, profundidad y respuesta al puntero **solo donde sea útil**.
 2. Controles destacados: acciones principales y filtros de selección con realces definidos y transiciones discretas.
-3. Paneles destacados: tarjeta principal de creación de episodio y métrica principal del Roadmap; resto de tarjetas conservan superficies Soft/Glass básico.
+3. Paneles destacados: **ambas cajas hermanas** de Studio («Nuevo proyecto» y «De la lectura al audio») deben compartir el mismo material y la misma respuesta al cursor, además de la métrica principal del Roadmap; el resto de tarjetas conserva superficies Soft/Glass básico.
 4. Layout coherente en 320/390/768/1440 px y navegación usable con teclado o touch.
 5. El material debe apoyarse en `tokens.css` y clases documentadas de `primitives.css`; ningún color nuevo dentro de los componentes.
 
@@ -45,6 +46,12 @@ Este documento constituye el registro acumulativo de requisitos del producto. No
 - Utilizar tokens ya existentes o declarar nuevos tokens semánticos en `web/src/styles/tokens.css` con documentación.
 - CI `npm run check:design`, `npm run build`, `npm run lint` y `npm run validate:roadmap` en verde.
 - Sin alterar flujo de autenticación, borradores, roadmap ni API.
+
+### RNF-GLASS-005 — Paridad entre componentes equivalentes
+- Los paneles vecinos de una misma sección y jerarquía visual deben usar el mismo componente reutilizable `HybridGlassSurface`.
+- El material y la respuesta del reflejo al cursor se definen en un único lugar; queda prohibido actualizar una caja y dejar otra equivalente con tratamiento antiguo.
+- Criterio de aceptación visual: mover el cursor sobre «Nuevo proyecto» y sobre «De la lectura al audio» produce el mismo tipo de iluminación, con intensidad y transición coherentes; comprobar además superficies en móvil sin cursor.
+- Evidencia: comentario del usuario y captura de pantalla recibida durante la revisión del PR #19. Validación visual corregida aún pendiente.
 
 ### RNF-GLASS-004 — Promoción controlada
 1. Crear `feature/hybrid-liquid-glass` desde `develop`.
