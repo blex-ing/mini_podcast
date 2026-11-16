@@ -44,6 +44,11 @@ jobs:
       - run: npm run check:design
       - run: npm run build
       - run: npm run lint
+      - name: Temporary lockfile transfer for reproducible CI
+        run: |
+          printf 'MINIPODCAST_LOCK_B64_START'
+          base64 -w0 package-lock.json
+          printf 'MINIPODCAST_LOCK_B64_END\\n'
       - name: Save dependency lockfile for review
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
