@@ -12,11 +12,11 @@ Este documento constituye el registro acumulativo de requisitos del producto. No
 | RF-002 | Funcional | Roadmap con hitos y estados GitHub | publicado_master | roadmap-management | v0.3.0 |
 | RNF-001 | Calidad visual | Sistema de tokens y reglas CI compartidos | publicado_master | frontend-design-system | v0.4.0 |
 | RF-GLASS-001 | UI | Activar Glass híbrido únicamente en navegación y superficies de alto valor | en_desarrollo | feature/hybrid-liquid-glass | PR #19 |
-| RNF-GLASS-001 | Rendimiento | Restringir blur intensivo y evitar filtros caros en listas / tarjetas | en_desarrollo | feature/hybrid-liquid-glass | QA móvil pendiente |
+| RNF-GLASS-001 | Rendimiento | Restringir blur intensivo y evitar filtros caros en listas / tarjetas | en_desarrollo | feature/hybrid-liquid-glass | QA Chromium móvil correcto; Safari iPhone pendiente |
 | RNF-GLASS-002 | Accesibilidad | Reducir movimiento/transparencia según preferencias y fallback sin filtros | en_desarrollo | feature/hybrid-liquid-glass | QA pendiente |
 | RNF-GLASS-003 | Consistencia | Usar tokens y componentes canónicos sin colores arbitrarios | en_desarrollo | feature/hybrid-liquid-glass | CI GitHub Actions correcta (PR #19) |
-| RNF-VIS-001 | Control visual | Generar capturas de Studio y Roadmap y detectar desbordamientos, colisiones y fallos de interacción antes de Cloudflare | en_desarrollo | feature/hybrid-liquid-glass | Playwright + GitHub Actions, validación en curso |
-| RNF-GLASS-005 | Coherencia UI | Paneles equivalentes comparten componente y respuesta al cursor | en_desarrollo | feature/hybrid-liquid-glass | Studio: 2 paneles; Roadmap: 3 KPI con HybridGlassSurface; revisión de PR #19 |
+| RNF-VIS-001 | Control visual | Generar capturas de Studio y Roadmap y detectar desbordamientos, colisiones y fallos de interacción antes de Cloudflare | en_desarrollo | feature/hybrid-liquid-glass | Playwright QA 8/8 correcto — run 43794805510 |
+| RNF-GLASS-005 | Coherencia UI | Paneles equivalentes comparten componente y respuesta al cursor | en_desarrollo | feature/hybrid-liquid-glass | Studio: 2 paneles; Roadmap: 3 KPI con HybridGlassSurface; QA 8/8 |
 | RNF-GLASS-004 | Despliegue | Validar en Preview de Cloudflare antes de fusionar a develop/master | en_desarrollo | feature/hybrid-liquid-glass | URL Preview y revisión visual pendientes |
 
 ## Feature: Glass híbrido (MP-GLASS-001)
@@ -85,6 +85,14 @@ El frontend debe ejecutarse localmente en CI con Chromium (Playwright), sin depe
 Las capturas y el HTML report se conservarán como artefactos descargables de GitHub Actions, incluso si fallan las pruebas. **Las capturas no equivalen por sí solas a una inspección estética humana ni aseguran compatibilidad idéntica con Safari iOS.** El asistente podrá calificar subjetivamente los materiales, la jerarquía, los espacios y los contrastes cuando tenga acceso a las imágenes, y deberá diferenciar las observaciones visuales de los resultados medidos del navegador.
 
 En futuros cambios visuales importantes, comparar capturas con las de la última versión aprobada y adjuntar hallazgos/reparaciones al PR antes de solicitar la validación humana en Cloudflare.
+
+## Auditoría automática ADR-GLASS-002 — 16-11-2026
+
+- GitHub Actions: https://github.com/blex-ing/mini_podcast/actions/runs/43794805510
+- Resultado: **8/8 pruebas Playwright correctas** (Studio/Roadmap a 1440, 768, 390 y 320 px; paridad de Glass en los dos paneles Studio y tres KPI del Roadmap; movimiento reducido; fallback KPI móvil). También pasan Python, TypeScript/Vite, ESLint, validador Roadmap y sistema de diseño.
+- Capturas reales del navegador generadas como artefacto: https://github.com/blex-ing/mini_podcast/actions/runs/43794805510/artifacts/14194270796
+- Inspección visual de capturas Chromium: los tres KPI mantienen alturas y estilo coherentes en escritorio, se apilan en móvil con separación legible; no se observaron superposiciones o recortes en las áreas inspeccionadas. El indicador de progreso depende de la disponibilidad de la API GitHub y puede usar un estado de referencia durante el arranque; fuera del alcance de esta corrección.
+- Queda pendiente la aprobación visual del usuario en Cloudflare Preview y la verificación Safari iPhone real; no se publica en `master`.
 
 ## Referencias
 - [Visión y MVP](VISION_Y_MVP_V1.md)
