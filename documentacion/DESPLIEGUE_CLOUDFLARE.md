@@ -1,24 +1,43 @@
-# Arquitectura de Cloudflare Pages
+# Despliegue en Cloudflare Workers
 
-GitHub es la fuente única de verdad.
+## Arquitectura
 
 ```text
-feature/*  → CI → Cloudflare Preview → PR develop
-develop    → CI → Cloudflare Preview (integración)
-release/*  → CI → Cloudflare Preview (release candidate)
-master     → CI → Cloudflare Production
+GitHub feature/* → CI → Workers Preview → PR a develop
+GitHub develop   → CI → Workers Preview integración
+GitHub release/* → CI → Workers Preview candidato a release
+GitHub master    → CI → Workers Production
+                                 |
+                                 └─ Vite build en web/dist como Static Assets
 ```
 
-El proyecto de Pages debe configurar:
-- Repositorio: `blex-ing/mini_podcast`.
-- Rama de producción: `master`.
-- Directorio raíz: `web`.
-- Comando de build: `npm run build`.
-- Directorio de salida: `dist`.
-- Node.js: 22.
+La aplicación Vite se compila en `web/`. El Worker y `wrangler.jsonc` están en la **raíz**. Los assets publicados son `web/dist`; SPA fallback: `single-page-application`.
 
-La UI estática funciona sin backend, usando una vista previa. El backend futuro podrá implementarse con Cloudflare Workers / backend Python independiente; Supabase se mantiene como opción para autenticación y metadatos.
+## Configuración de Workers Builds
 
-No exponer claves privadas en el cliente. La integración de extracción URL necesita controles SSRF en el backend. La generación de audio no debe ejecutarse directamente desde el navegador con claves privadas.
+- Repositorio: `blex-ing/mini_podcast`
+- Producción: `master`
+- Nombre: `mini-podcast`
+- Path: `/`
+- Build: `cd web && npm install && npm run build`
+- Deploy: `npx wrangler deploy`
+- Preview: `npx wrangler preview`
+- Enable Preview builds: sí
+- Access: opcional; no para demo pública.
 
-**Estado:** preparado para conectar; no hay despliegue ni URL pública confirmada hasta que se cree el proyecto Pages en Cloudflare.
+Estas instrucciones se refieren a **Workers Builds**, no al formulario clásico de Cloudflare Pages.
+
+## Validación de release
+
+1. CI Python y web sin fallos.
+2. URL Preview de la rama de release responde y muestra el estudio.
+3. QA móvil/escritorio y enlaces de navegación.
+4. Publicar a `master` mediante PR `release/*`.
+5. Verificar URL de producción y crear tag de GitHub Release.
+6. Sincronizar `master` a `develop`.
+
+## Backend futuro
+
+La extracción de artículos debe hacerse en servidor con límites, timeouts y protección SSRF. Los secretos IA/TTS no se introducen jamás en el navegador; Supabase es opcional para Auth/datos. El deploy de la UI no implica que la generación de podcasts esté operativa.
+
+**Estado:** configuración versionada en GitHub; la URL Workers real solo se confirma consultando Cloudflare tras conectar y desplegar el repositorio.
