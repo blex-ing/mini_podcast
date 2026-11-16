@@ -1,0 +1,44 @@
+name: Cleanup merged temporary branches
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [develop, master]
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    if: >-
+      github.event.pull_request.merged == true &&
+      (
+        (github.event.pull_request.base.ref == 'develop' && startsWith(github.event.pull_request.head.ref, 'feature/')) ||
+        (github.event.pull_request.base.ref == 'master' && startsWith(github.event.pull_request.head.ref, 'release/'))
+      )
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Delete only the exact merged head
+        env:
+          HEAD_BRANCH: ${{ github.event.pull_request.head.ref }}
+          MERGED_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          remote_ref="refs/heads/${HEAD_BRANCH}"
+          current_sha="$(git ls-remote --heads origin "${remote_ref}" | awk '{print $1}')"
+          if [ -z "${current_sha}" ]; then
+            echo "Already absent"
+            exit 0
+          fi
+          if git push --force-with-lease="${remote_ref}:${MERGED_HEAD_SHA}" origin ":${remote_ref}"; then
+            echo "Safely deleted ${HEAD_BRANCH}"
+            exit 0
+          fi
+          latest_sha="$(git ls-remote --heads origin "${remote_ref}" | awk '{print $1}')"
+          if [ -z "${latest_sha}" ] || [ "${latest_sha}" != "${MERGED_HEAD_SHA}" ]; then
+            echo "Branch absent or advanced; preserving it"
+            exit 0
+          fi
+          echo "::error::Deletion failed although SHA did not change"
+          exit 1
