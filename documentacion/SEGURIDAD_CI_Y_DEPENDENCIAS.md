@@ -21,7 +21,7 @@ Usar en YAML `uses: actions/<acción>@<SHA>` con comentario legible `# vX.Y.Z`: 
 - Los workflows CI de web y Playwright usan **Node.js 24** (LTS) para el proyecto. Las acciones v7 usan un runtime interno Node24; ambas cosas son independientes.
 - Python del pipeline permanece en la rama 3.12, soportada; cambios de versión de Python se validarán antes de migrarlos.
 - `web/package-lock.json` se genera mediante npm en el runner Node24 y se **versiona**. `npm ci --no-audit --no-fund` instala versiones fijadas; `npm install` no debe sustituir a `npm ci` en CI cuando existe un lockfile.
-- La comprobación `npm audit --omit=dev --audit-level=high` bloquea la CI ante vulnerabilidades altas o críticas en dependencias de producción.
+- La comprobación `npm audit --audit-level=high` analiza **dependencias de producción y desarrollo** y bloquea la CI ante vulnerabilidades altas o críticas. Los avisos de paquetes ya fuera de soporte se gestionan también mediante revisión de versiones, no únicamente con `npm audit`.
 - `npm run test:visual` usa Playwright real en Chromium local. `actions/upload-artifact` conserva capturas/HTML report durante un período limitado. No se captura ni publica información real de usuarios.
 - No desactivar errores con `continue-on-error` ni reemplazar pruebas oficiales por herramientas inventadas.
 
