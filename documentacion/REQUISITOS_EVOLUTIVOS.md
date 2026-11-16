@@ -11,16 +11,16 @@ Este documento constituye el registro acumulativo de requisitos del producto. No
 | RF-001 | Funcional | Crear borrador de episodio mediante URL validada | publicado_master (solo borrador opcional Supabase) | studio-ui | v0.2.0 |
 | RF-002 | Funcional | Roadmap con hitos y estados GitHub | publicado_master | roadmap-management | v0.3.0 |
 | RNF-001 | Calidad visual | Sistema de tokens y reglas CI compartidos | publicado_master | frontend-design-system | v0.4.0 |
-| RF-GLASS-001 | UI | Activar Glass híbrido únicamente en navegación y superficies de alto valor | en_desarrollo | feature/hybrid-liquid-glass | PR #19 |
-| RNF-GLASS-001 | Rendimiento | Restringir blur intensivo y evitar filtros caros en listas / tarjetas | en_desarrollo | feature/hybrid-liquid-glass | QA Chromium móvil correcto; Safari iPhone pendiente |
-| RNF-GLASS-002 | Accesibilidad | Reducir movimiento/transparencia según preferencias y fallback sin filtros | en_desarrollo | feature/hybrid-liquid-glass | QA pendiente |
-| RNF-GLASS-003 | Consistencia | Usar tokens y componentes canónicos sin colores arbitrarios | en_desarrollo | feature/hybrid-liquid-glass | CI GitHub Actions correcta (PR #19) |
-| RNF-SEC-001 | Supply chain | GitHub Actions oficiales actuales, pinning SHA y runtime Node24 | en_desarrollo | feature/hybrid-liquid-glass | PR #19; GitHub Actions v7 verificadas y CI correcta |
-| RNF-SEC-002 | Reproducibilidad | Lockfile npm versionado y uso de `npm ci` en CI/QA visual | en_desarrollo | feature/hybrid-liquid-glass | `web/package-lock.json`, CI correcta |
-| RNF-SEC-003 | Seguridad | Permisos mínimos, auditoría npm y actualizaciones Dependabot revisadas | en_desarrollo | feature/hybrid-liquid-glass | `.github/dependabot.yml`; 0 altas/críticas, 7 moderadas de tooling pendientes |
-| RNF-VIS-001 | Control visual | Generar capturas de Studio y Roadmap y detectar desbordamientos, colisiones y fallos de interacción antes de Cloudflare | en_desarrollo | feature/hybrid-liquid-glass | Playwright QA 8/8 correcto — run 43794805510 |
-| RNF-GLASS-005 | Coherencia UI | Paneles equivalentes comparten componente y respuesta al cursor | en_desarrollo | feature/hybrid-liquid-glass | Studio: 2 paneles; Roadmap: 3 KPI con HybridGlassSurface; QA 8/8 |
-| RNF-GLASS-004 | Despliegue | Validar en Preview de Cloudflare antes de fusionar a develop/master | en_desarrollo | feature/hybrid-liquid-glass | URL Preview y revisión visual pendientes |
+| RF-GLASS-001 | UI | Activar Glass híbrido únicamente en navegación y superficies de alto valor | publicado_master | feature/hybrid-liquid-glass | PR #19 |
+| RNF-GLASS-001 | Rendimiento | Restringir blur intensivo y evitar filtros caros en listas / tarjetas | publicado_master | feature/hybrid-liquid-glass | QA Chromium móvil correcto; Safari iPhone pendiente |
+| RNF-GLASS-002 | Accesibilidad | Reducir movimiento/transparencia según preferencias y fallback sin filtros | publicado_master | feature/hybrid-liquid-glass | QA pendiente |
+| RNF-GLASS-003 | Consistencia | Usar tokens y componentes canónicos sin colores arbitrarios | publicado_master | feature/hybrid-liquid-glass | CI GitHub Actions correcta (PR #19) |
+| RNF-SEC-001 | Supply chain | GitHub Actions oficiales actuales, pinning SHA y runtime Node24 | publicado_master | feature/hybrid-liquid-glass | PR #19; GitHub Actions v7 verificadas y CI correcta |
+| RNF-SEC-002 | Reproducibilidad | Lockfile npm versionado y uso de `npm ci` en CI/QA visual | publicado_master | feature/hybrid-liquid-glass | `web/package-lock.json`, CI correcta |
+| RNF-SEC-003 | Seguridad | Permisos mínimos, auditoría npm y actualizaciones Dependabot revisadas | publicado_master | feature/hybrid-liquid-glass | `.github/dependabot.yml`; 0 altas/críticas, 7 moderadas de tooling pendientes |
+| RNF-VIS-001 | Control visual | Generar capturas de Studio y Roadmap y detectar desbordamientos, colisiones y fallos de interacción antes de Cloudflare | publicado_master | feature/hybrid-liquid-glass | Playwright QA 8/8 correcto — run 43794805510 |
+| RNF-GLASS-005 | Coherencia UI | Paneles equivalentes comparten componente y respuesta al cursor | publicado_master | feature/hybrid-liquid-glass | Studio: 2 paneles; Roadmap: 3 KPI con HybridGlassSurface; QA 8/8 |
+| RNF-GLASS-004 | Despliegue | Validar en Preview de Cloudflare antes de fusionar a develop/master | en_desarrollo | feature/hybrid-liquid-glass | Excepción de promoción aprobada expresamente por el usuario el 16-11-2026; comprobación Cloudflare/Safari pendiente |
 
 ## Feature: Glass híbrido (MP-GLASS-001)
 
@@ -60,9 +60,9 @@ Este documento constituye el registro acumulativo de requisitos del producto. No
 
 ### RNF-GLASS-004 — Promoción controlada
 1. Crear `feature/hybrid-liquid-glass` desde `develop`.
-2. Implementar y abrir PR **sin fusionar**; confirmar en GitHub Actions que pasa CI.
+2. Implementar y abrir PR **en borrador inicialmente**; confirmar en GitHub Actions que pasa CI.
 3. Probar el despliegue Preview de Cloudflare correspondiente a la rama/PR. No suponer la URL hasta verificarla en Cloudflare.
-4. Recoger aprobación visual explícita del usuario para escritorio y móvil.
+4. Recoger aprobación explícita del usuario antes de publicar. La inspección del usuario en Cloudflare Preview/Safari es preferente; en esta release el usuario autorizó expresamente completar la publicación el 16-11-2026 sin aportar verificación adicional de Safari.
 5. **Solo tras aprobación:** PR feature → `develop`, `release/vX.Y.Z` → `master`; etiqueta y GitHub Release automáticas.
 6. Actualizar en este registro estado, PR y release reales, y en el Roadmap si se decide incorporarlo como feature ponderada.
 
@@ -95,15 +95,22 @@ En futuros cambios visuales importantes, comparar capturas con las de la última
 - Resultado: **8/8 pruebas Playwright correctas** (Studio/Roadmap a 1440, 768, 390 y 320 px; paridad de Glass en los dos paneles Studio y tres KPI del Roadmap; movimiento reducido; fallback KPI móvil). También pasan Python, TypeScript/Vite, ESLint, validador Roadmap y sistema de diseño.
 - Capturas reales del navegador generadas como artefacto: https://github.com/blex-ing/mini_podcast/actions/runs/43794805510/artifacts/14194270796
 - Inspección visual de capturas Chromium: los tres KPI mantienen alturas y estilo coherentes en escritorio, se apilan en móvil con separación legible; no se observaron superposiciones o recortes en las áreas inspeccionadas. El indicador de progreso depende de la disponibilidad de la API GitHub y puede usar un estado de referencia durante el arranque; fuera del alcance de esta corrección.
-- Queda pendiente la aprobación visual del usuario en Cloudflare Preview y la verificación Safari iPhone real; no se publica en `master`.
+- El usuario autorizó expresamente la promoción a `master` el 16-11-2026, aunque la verificación en Cloudflare Preview y Safari iPhone real permanece pendiente. No confundir autorización de publicación con QA realizado.
 
 ## RNF-SEC-001 a 003 — Seguridad de herramientas (16-11-2026)
 - Fuente oficial: aviso GitHub de Node20 retirado el 23-09-2026. No utilizar `actions/checkout@v4`, `actions/setup-node@v4`, `actions/setup-python@v5` o `actions/upload-artifact@v4` en nuevas features.
 - Usar los commits **oficiales y verificados** indicados en [SEGURIDAD_CI_Y_DEPENDENCIAS.md](SEGURIDAD_CI_Y_DEPENDENCIAS.md); runtime del proyecto Node24 LTS; instalar con lockfile `npm ci`.
 - Auditoría actual de npm: **0 vulnerabilidades altas/críticas; 7 hallazgos moderados** del árbol de desarrollo TypeScript/ESLint asociados a `minimatch` (GHSA-g3hv-75wg-m249). El aviso oficial identifica parche 11.0.1. No forzar actualizaciones mayores sin probar compatibilidad. Debe resolverse o evaluarse en una feature de mantenimiento de dependencias.
 - Se observó advertencia de soporte expirado para `eslint@9.39.5`, que también requiere actualización controlada y verificación de los plugins. No equivalen estos avisos a un fallo confirmado en ejecución de producción.
-- Los cambios siguen en PR #19 en borrador; no hay promoción a `master` hasta la validación acordada para la feature Glass.
+- PR #19 fusionado en `develop` el 16-11-2026; release objetivo v0.5.0. La promoción a `master` fue autorizada expresamente por el usuario. Los siete avisos moderados se controlan en el issue #20.
 - Validar en CI la ausencia del aviso `Node.js 20`, la existencia de capturas reales y las pruebas completas de frontend.
+
+## Publicación v0.5.0 — evidencia y límites
+- Feature: PR #19 fusionado a `develop`. Release dirigida a `master` mediante `release/v0.5.0`.
+- Tests de la última versión de la feature: [Actions 43796694106](https://github.com/blex-ing/mini_podcast/actions/runs/43796694106) — Python, Web, Chromium QA correctos.
+- GitHub Actions oficiales verificadas y `web/package-lock.json` reproducible.
+- **Pendiente**: comprobación visual y funcional en Cloudflare desplegado y Safari iPhone real, sin haber afirmado que se haya ejecutado.
+- Dependencias: issue [#20](https://github.com/blex-ing/mini_podcast/issues/20), avisos moderados de ESLint/TypeScript a revisar en feature separada.
 
 ## Referencias
 - [Visión y MVP](VISION_Y_MVP_V1.md)
