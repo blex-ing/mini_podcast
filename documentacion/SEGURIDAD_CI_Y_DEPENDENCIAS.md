@@ -1,6 +1,6 @@
 # Seguridad y mantenimiento del pipeline de Mini Podcast
 
-**Estado:** política de CI implantada en `feature/hybrid-liquid-glass`, revisión de PR #19. **Fecha:** 16-11-2026. Esta documentación describe la política efectiva de la rama; su incorporación a `master` dependerá del flujo de release y la aprobación de la feature.
+**Estado:** política de CI integrada desde la feature PR #19 y publicada en la release v0.5.0. **Fecha:** 16-11-2026. Se mantendrá actualizada mediante PRs.
 
 ## Decisión técnica SEC-CI-001 — Acciones oficiales, actuales y verificadas
 
@@ -21,7 +21,7 @@ Usar en YAML `uses: actions/<acción>@<SHA>` con comentario legible `# vX.Y.Z`: 
 - Los workflows CI de web y Playwright usan **Node.js 24** (LTS) para el proyecto. Las acciones v7 usan un runtime interno Node24; ambas cosas son independientes.
 - Python del pipeline permanece en la rama 3.12, soportada; cambios de versión de Python se validarán antes de migrarlos.
 - `web/package-lock.json` se genera mediante npm en el runner Node24 y se **versiona**. `npm ci --no-audit --no-fund` instala versiones fijadas; `npm install` no debe sustituir a `npm ci` en CI cuando existe un lockfile.
-- La comprobación `npm audit --audit-level=high` analiza **dependencias de producción y desarrollo** y bloquea la CI ante vulnerabilidades altas o críticas. Los avisos de paquetes ya fuera de soporte se gestionan también mediante revisión de versiones, no únicamente con `npm audit`.
+- La comprobación `npm audit --audit-level=high` analiza **dependencias de producción y desarrollo** y bloquea la CI ante vulnerabilidades altas o críticas. La auditoría de la feature detectó 7 alertas moderadas vinculadas a `minimatch` en herramientas de desarrollo; seguimiento en issue #20. Los avisos de paquetes ya fuera de soporte se gestionan también mediante revisión de versiones, no únicamente con `npm audit`.
 - `npm run test:visual` usa Playwright real en Chromium local. `actions/upload-artifact` conserva capturas/HTML report durante un período limitado. No se captura ni publica información real de usuarios.
 - No desactivar errores con `continue-on-error` ni reemplazar pruebas oficiales por herramientas inventadas.
 
