@@ -44,8 +44,8 @@ jobs:
       - run: npm run check:design
       - run: npm run build
       - run: npm run lint
-      - name: Audit production dependencies
-        run: npm audit --omit=dev --audit-level=high
+      - name: Audit all npm dependencies
+        run: npm audit --audit-level=high
 
   visual:
     name: Visual QA (Chromium screenshots)
