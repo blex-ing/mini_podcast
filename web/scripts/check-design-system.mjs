@@ -55,6 +55,15 @@ for (const name of ['editor', 'process']) {
     errors.push('Studio ' + name + ' panel must use HybridGlassSurface, not a standalone glass class')
   }
 }
+// A KPI is a peer of the other two: never special-case interactive material.
+const roadmapScreen = readFileSync(resolve('src/RoadmapPage.tsx'), 'utf8')
+const kpiCount = (roadmapScreen.match(/<HybridGlassSurface className="roadmap-stat/g) || []).length
+if (kpiCount !== 3) {
+  errors.push('Roadmap must render exactly three KPI siblings with HybridGlassSurface; got ' + kpiCount)
+}
+if (roadmapScreen.includes('roadmap-stat ui-glass-card')) {
+  errors.push('Roadmap KPI cards must not use a different glass material')
+}
 if (errors.length) {
   console.error('Design system violations:\n' + errors.join('\n'))
   process.exit(1)
