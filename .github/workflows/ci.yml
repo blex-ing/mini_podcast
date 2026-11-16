@@ -36,3 +36,29 @@ jobs:
       - run: npm run check:design
       - run: npm run build
       - run: npm run lint
+
+  visual:
+    name: Visual QA (Chromium screenshots)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm install --no-audit --no-fund
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:visual
+      - name: Upload screenshots and HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-qa-${{ github.run_id }}
+          path: |
+            web/test-results/visual
+            web/visual-report
+          if-no-files-found: warn
+          retention-days: 14
