@@ -1,9 +1,10 @@
 # Changelog
 
-Los cambios publicados se documentarán aquí según SemVer.
+## v0.1.0 — Base de desarrollo
+- Adopción del flujo de ramas y releases de Yachay Kichwa.
+- Documentación de arquitectura de desarrollo para Python.
+- CI, plantilla de Pull Requests y reglas de archivos ignorados.
+- Automatización de limpieza de ramas y publicación de GitHub Releases.
+- No se modifica la lógica del script histórico.
 
-## Unreleased
-- Establecimiento del flujo Git de Yachay Kichwa adaptado a mini_podcast.
-- Documentación de arquitectura objetivo, plantilla de PR y CI básica de Python.
-
-> Esta preparación no es todavía una release funcional de generación de podcasts.
+> Esta versión prepara la infraestructura; todavía no genera podcasts completos.
