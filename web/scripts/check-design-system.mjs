@@ -47,6 +47,15 @@ function inspect(file) {
   }
 }
 walk(root)
+// Guard against the UI regression found in PR #19: both equivalent Studio
+// panels must use the same interactive hybrid glass primitive.
+const studio = readFileSync(resolve('src/App.tsx'), 'utf8')
+for (const name of ['editor', 'process']) {
+  const matching = new RegExp('<HybridGlassSurface\\\\s+className="panel ' + name + '"')
+  if (!matching.test(studio)) {
+    errors.push('Studio ' + name + ' panel must use HybridGlassSurface, not a standalone glass class')
+  }
+}
 if (errors.length) {
   console.error('Design system violations:\n' + errors.join('\n'))
   process.exit(1)
