@@ -41,3 +41,15 @@ Estas instrucciones se refieren a **Workers Builds**, no al formulario clásico 
 La extracción de artículos debe hacerse en servidor con límites, timeouts y protección SSRF. Los secretos IA/TTS no se introducen jamás en el navegador; Supabase es opcional para Auth/datos. El deploy de la UI no implica que la generación de podcasts esté operativa.
 
 **Estado:** configuración versionada en GitHub; la URL Workers real solo se confirma consultando Cloudflare tras conectar y desplegar el repositorio.
+
+## Diagnóstico 2026-11-16 — Error de Preview
+
+El build de Vite terminó correctamente, pero Wrangler falló porque faltaba `previews: {}` en `wrangler.jsonc`. Este bloque es obligatorio para ejecutar `npx wrangler preview` en Cloudflare Workers actuales.
+
+**Distinguir los dos comandos en el panel Cloudflare:**
+- **Deploy command:** `npx wrangler deploy` (producción, rama `master`).
+- **Preview command:** `npx wrangler preview` (otras ramas).
+
+Si el log dice «Executing user deploy command: npx wrangler preview», el campo Deploy command está mal configurado: cambiarlo desde Cloudflare → Worker → Settings → Build. El cambio en GitHub no altera esos campos del Dashboard.
+
+Después de corregir el panel, lanzar un despliegue nuevo desde la rama `master` y comprobar la URL `workers.dev`.
